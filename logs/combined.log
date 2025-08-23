@@ -22,3 +22,418 @@
 2025-08-17 13:36:54 [[32minfo[39m]: Server started
 2025-08-17 13:36:54 [[31merror[39m]: Database connection failed
 2025-08-17 13:36:54 [[33mwarn[39m]: Deprecated API used
+2025-08-23 20:51:42 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:51:42 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:51:42 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:51:42 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:51:57 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:51:57 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:51:57 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:51:57 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:51:58 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:51:58 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:51:58 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:51:58 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:52:09 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:52:09 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:52:09 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:52:09 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:52:31 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:52:31 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:52:31 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:52:31 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:52:56 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:52:56 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:52:56 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:52:56 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:53:05 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:53:05 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:53:05 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:53:05 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:53:09 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:53:09 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:53:09 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:53:09 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:53:13 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:53:13 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:53:13 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:53:13 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:53:57 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:53:57 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:53:57 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:53:57 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:54:09 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:54:09 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:54:09 [[32minfo[39m]: Server started successfully on port 3000
+2025-08-23 20:54:09 [[32minfo[39m]: Server is running on http://localhost:3000
+2025-08-23 20:54:36 [[32minfo[39m]: Received SIGINT. Starting graceful shutdown...
+2025-08-23 20:54:45 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:54:45 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:54:45 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:54:45 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:55:06 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:55:06 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:55:06 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:55:06 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:55:46 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:55:46 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:55:46 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:55:46 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:56:04 [[32minfo[39m]: Found 0 route files to load
+2025-08-23 20:56:04 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:56:04 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:56:04 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:56:15 [[32minfo[39m]: Found 1 route files to load
+2025-08-23 20:56:15 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:56:15 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:56:15 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:56:15 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:56:22 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:56:22 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:56:22 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:56:22 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:56:22 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:56:22 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:57:31 [[32minfo[39m]: Received SIGINT. Starting graceful shutdown...
+2025-08-23 20:57:38 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:57:38 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:57:38 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:57:38 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:57:38 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:57:38 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:57:44 [[32minfo[39m]: Request: GET / from ::1
+2025-08-23 20:57:49 [[31merror[39m]: Error: GET / - Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details. (5289ms)
+2025-08-23 20:57:52 [[32minfo[39m]: Request: GET /favicon.ico from ::1
+2025-08-23 20:58:02 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:58:02 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:58:02 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:58:02 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:58:02 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:58:02 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:58:02 [[32minfo[39m]: Request: GET /favicon.ico from ::ffff:127.0.0.1
+2025-08-23 20:58:12 [[31merror[39m]: Error: GET /favicon.ico - Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details. (10596ms)
+2025-08-23 20:58:23 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:58:23 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:58:24 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:58:27 [[32minfo[39m]: Received SIGINT. Starting graceful shutdown...
+2025-08-23 20:59:01 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:59:01 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:59:01 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:59:01 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 20:59:01 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 20:59:01 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 20:59:15 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 20:59:15 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 20:59:15 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 20:59:21 [[32minfo[39m]: Request: GET / from ::1
+2025-08-23 20:59:21 [[32minfo[39m]: Response: GET / - 404 (8ms)
+2025-08-23 20:59:22 [[32minfo[39m]: Request: GET /favicon.ico from ::1
+2025-08-23 20:59:22 [[32minfo[39m]: Response: GET /favicon.ico - 404 (1ms)
+2025-08-23 21:00:51 [[32minfo[39m]: Request: GET /health from ::1
+2025-08-23 21:00:51 [[32minfo[39m]: Response: GET /health - 404 (0ms)
+2025-08-23 21:01:21 [[32minfo[39m]: Request: GET /api/health from ::1
+2025-08-23 21:01:21 [[32minfo[39m]: Response: GET /api/health - 404 (1ms)
+2025-08-23 21:02:23 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:02:23 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:02:23 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 21:02:23 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:02:23 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:02:23 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:06:56 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:06:56 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:06:56 [[32minfo[39m]: Loaded route: health with prefix: /health
+2025-08-23 21:06:56 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:06:56 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:06:56 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:07:22 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:07:22 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:07:22 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:07:22 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:07:22 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:07:22 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:07:38 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:07:38 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:07:38 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:07:38 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:07:38 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:07:38 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:07:52 [[32minfo[39m]: Request: GET /health from ::1
+2025-08-23 21:07:52 [[32minfo[39m]: Response: GET /health - 404 (12ms)
+2025-08-23 21:08:06 [[32minfo[39m]: Request: GET /api from ::1
+2025-08-23 21:08:06 [[32minfo[39m]: Response: GET /api - 200 (57ms)
+2025-08-23 21:08:15 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:08:15 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:08:15 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:08:15 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:08:15 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:08:15 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:08:23 [[32minfo[39m]: Request: GET /api/version from ::1
+2025-08-23 21:08:23 [[32minfo[39m]: Response: GET /api/version - 200 (24ms)
+2025-08-23 21:09:58 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:09:58 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:09:58 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:09:58 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:09:58 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:09:58 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:11:38 [[32minfo[39m]: Found 2 route files to load
+2025-08-23 21:11:38 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:11:38 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:11:38 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:11:38 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:11:38 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:11:50 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:11:50 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:11:51 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:11:51 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:11:51 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:11:51 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:11:51 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:11:51 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:11:51 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:11:52 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:11:52 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:11:52 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:11:52 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:11:52 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:11:52 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:11:52 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:12:00 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:12:00 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:12:00 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:12:00 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:00 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:12:00 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:12:00 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:12:05 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:12:05 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:12:05 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:12:05 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:05 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:12:05 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:12:05 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:12:47 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:12:47 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:12:47 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:12:47 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:47 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:12:47 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:12:47 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:12:55 [[32minfo[39m]: Request: GET /public/swagger.html from ::1
+2025-08-23 21:12:55 [[32minfo[39m]: Response: GET /public/swagger.html - 404 (15ms)
+2025-08-23 21:13:25 [[32minfo[39m]: Request: GET /public/test.html from ::1
+2025-08-23 21:13:25 [[32minfo[39m]: Response: GET /public/test.html - 404 (1ms)
+2025-08-23 21:14:14 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:14 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:14 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:14 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:14:24 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:24 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:24 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:24 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:14:24 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:14:24 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:14:24 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:14:34 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:34 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:34 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:34 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:14:34 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:14:34 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:14:34 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:14:41 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:41 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:41 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:41 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:14:41 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:14:41 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:14:41 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:14:42 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:42 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:42 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:42 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:14:42 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:14:42 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:14:42 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:14:48 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:14:48 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:14:48 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:14:48 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:14:48 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:14:48 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:14:48 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:15:08 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:15:08 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:15:08 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:15:08 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:15:08 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:15:08 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:15:08 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:15:17 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:15:17 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:15:17 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:15:17 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:15:34 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:15:34 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:15:34 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:15:34 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:15:34 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:15:34 [[32minfo[39m]: Server started successfully on port 3003
+2025-08-23 21:15:34 [[32minfo[39m]: Server is running on http://localhost:3003
+2025-08-23 21:15:40 [[32minfo[39m]: Request: GET / from ::1
+2025-08-23 21:15:40 [[32minfo[39m]: Response: GET / - 404 (38ms)
+2025-08-23 21:18:09 [[32minfo[39m]: Received SIGINT. Starting graceful shutdown...
+2025-08-23 21:18:11 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:18:11 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:18:11 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:18:11 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:18:11 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:18:11 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:18:11 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:18:19 [[32minfo[39m]: Request: GET / from ::1
+2025-08-23 21:18:19 [[32minfo[39m]: Response: GET / - 404 (5ms)
+2025-08-23 21:18:25 [[32minfo[39m]: Request: GET /swagger from ::1
+2025-08-23 21:18:25 [[32minfo[39m]: Response: GET /swagger - 404 (7ms)
+2025-08-23 21:18:39 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:18:39 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:18:39 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:18:39 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:18:39 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:18:39 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:18:39 [[32minfo[39m]: Server is running on http://localhost:3001
+2025-08-23 21:18:52 [[32minfo[39m]: Request: GET /public/swagger.html from ::1
+2025-08-23 21:18:52 [[32minfo[39m]: Response: GET /public/swagger.html - 404 (15ms)
+2025-08-23 21:19:07 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:19:07 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:19:07 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:19:07 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:19:07 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:19:07 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:19:07 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:19:35 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:19:36 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:19:36 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:19:36 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:19:36 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:19:36 [[32minfo[39m]: Server started successfully on port 3001
+2025-08-23 21:19:36 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:19:38 [[32minfo[39m]: Found 3 route files to load
+2025-08-23 21:19:38 [[32minfo[39m]: Loaded route: api with prefix: /api
+2025-08-23 21:19:38 [[32minfo[39m]: Loaded route: health with prefix: /
+2025-08-23 21:19:38 [[32minfo[39m]: Loaded route: swagger with prefix: /docs
+2025-08-23 21:19:38 [[32minfo[39m]: All routes loaded successfully
+2025-08-23 21:19:38 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:19:38 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:20:38 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:20:38 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:20:38 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:20:38 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:20:38 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:20:38 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:20:38 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:20:42 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:20:42 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:20:42 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:20:42 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:20:42 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:20:42 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:20:42 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:20:45 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:20:45 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:20:45 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:20:45 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:20:45 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:20:45 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:20:45 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:22:38 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:22:38 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:22:38 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:22:38 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:22:38 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:22:38 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:22:38 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:23:00 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:23:00 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:23:00 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:23:00 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:23:00 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:23:00 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:23:00 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:23:17 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:23:17 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:23:17 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:23:17 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:23:17 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:23:17 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:23:17 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:41:01 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:41:01 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:41:01 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:41:01 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:41:01 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:41:01 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:41:01 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:41:08 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:41:08 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:41:08 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:41:08 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:41:08 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:41:08 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:41:08 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:45:00 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:45:00 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:45:00 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:45:00 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:45:00 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:45:00 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:45:00 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:45:12 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:45:12 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:45:12 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:45:12 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:45:12 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:45:12 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:45:12 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:46:33 [[32minfo[39m]: 收到信号: SIGINT，开始优雅关闭...
+2025-08-23 21:46:36 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:46:36 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:46:36 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:46:36 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:46:36 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:46:36 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:46:36 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:47:03 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:47:03 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:47:03 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:47:03 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:47:03 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:47:03 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:47:03 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:47:05 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:47:05 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:47:05 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:47:05 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:47:05 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:47:05 [[32minfo[39m]: 应用启动成功，监听端口: 3001
+2025-08-23 21:47:05 [[32minfo[39m]: 服务器启动成功，运行在端口: 3001
+2025-08-23 21:48:26 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:48:26 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:48:26 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:48:26 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:48:26 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:48:26 [[32minfo[39m]: 应用启动成功，监听端口: 3000
+2025-08-23 21:48:26 [[32minfo[39m]: 服务器启动成功，运行在端口: 3000
+2025-08-23 21:48:28 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:48:28 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:48:28 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:48:28 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:48:28 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:48:28 [[32minfo[39m]: 应用启动成功，监听端口: 3000
+2025-08-23 21:48:28 [[32minfo[39m]: 服务器启动成功，运行在端口: 3000
+2025-08-23 21:48:35 [[32minfo[39m]: 发现 3 个路由文件
+2025-08-23 21:48:35 [[32minfo[39m]: 路由 api 加载成功，前缀: /api
+2025-08-23 21:48:35 [[32minfo[39m]: 路由 health 加载成功，前缀: /
+2025-08-23 21:48:35 [[32minfo[39m]: 路由 swagger 加载成功，前缀: /docs
+2025-08-23 21:48:35 [[32minfo[39m]: 所有路由加载成功
+2025-08-23 21:48:35 [[32minfo[39m]: 应用启动成功，监听端口: 3000
+2025-08-23 21:48:35 [[32minfo[39m]: 服务器启动成功，运行在端口: 3000
+2025-08-23 21:49:27 [[32minfo[39m]: 收到信号: SIGINT，开始优雅关闭...
