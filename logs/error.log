@@ -6,3 +6,14 @@
 2025-08-17 13:31:45 [[31merror[39m]: Database connection failed
 2025-08-17 13:36:49 [[31merror[39m]: Database connection failed
 2025-08-17 13:36:54 [[31merror[39m]: Database connection failed
+2025-08-23 20:57:49 [[31merror[39m]: Error: GET / - Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details. (5289ms)
+2025-08-23 20:58:12 [[31merror[39m]: Error: GET /favicon.ico - Reached the max retries per request limit (which is 20). Refer to "maxRetriesPerRequest" option for details. (10596ms)
+2025-08-23 20:58:24 [[31merror[39m]: Uncaught Exception: listen EADDRINUSE: address already in use :::3001
+2025-08-23 20:59:15 [[31merror[39m]: Uncaught Exception: listen EADDRINUSE: address already in use :::3001
+2025-08-23 21:11:51 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:11:52 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:00 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:05 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:12:47 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:14:14 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
+2025-08-23 21:15:17 [[31merror[39m]: Uncaught Exception: listen EADDRINUSE: address already in use :::3001
