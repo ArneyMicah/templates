@@ -1,0 +1,5 @@
+{
+  "redirect": "/docs/swagger.json",
+  "message": "请访问 /docs/swagger.json 获取完整的 Swagger 规范",
+  "note": "此文件仅用于兼容性，实际 API 文档请访问 /docs/swagger.json"
+}

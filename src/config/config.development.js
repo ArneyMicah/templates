@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+// 应用配置
 export const APP_PORT = process.env.APP_PORT || 3003;
 export const APP_HOST = process.env.APP_HOST || 'localhost';
 
@@ -30,4 +31,8 @@ export const LOG_LEVEL = process.env.LOG_LEVEL || 'debug';
 export const LOG_FILE_PATH = process.env.LOG_FILE_PATH || './logs';
 
 // CORS 配置
-export const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:3000', 'http://localhost:3003'];
+export const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3003'];
+
+// 静态文件配置
+export const STATIC_PATH = process.env.STATIC_PATH || './public';
+export const STATIC_URL = process.env.STATIC_URL || '/public';

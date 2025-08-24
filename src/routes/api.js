@@ -10,8 +10,6 @@ const router = new Router();
 
 // API根路径
 router.get('/', async (ctx) => {
-  console.log('📡 收到API信息请求');
-  
   const apiInfo = {
     success: true,
     message: '欢迎使用 Koa Project API',
@@ -43,17 +41,13 @@ router.get('/', async (ctx) => {
       testPage: '/public/test.html'
     }
   };
-  
+
   ctx.body = apiInfo;
   ctx.status = 200;
-  
-  console.log('✅ API信息查询完成');
 });
 
 // API版本信息
 router.get('/version', async (ctx) => {
-  console.log('📋 收到版本信息请求');
-  
   const versionInfo = {
     success: true,
     message: 'API版本信息',
@@ -75,17 +69,13 @@ router.get('/version', async (ctx) => {
       koa: '>=2.14.0'
     }
   };
-  
+
   ctx.body = versionInfo;
   ctx.status = 200;
-  
-  console.log('✅ 版本信息查询完成');
 });
 
 // API状态检查
 router.get('/status', async (ctx) => {
-  console.log('🔍 收到状态检查请求');
-  
   const statusInfo = {
     success: true,
     message: 'API状态正常',
@@ -102,11 +92,9 @@ router.get('/status', async (ctx) => {
       external: 'healthy'
     }
   };
-  
+
   ctx.body = statusInfo;
   ctx.status = 200;
-  
-  console.log('✅ 状态检查完成');
 });
 
 export default router;

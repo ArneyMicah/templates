@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import Router from 'koa-router';
 import logger from '../utils/logger.js';
+import testRouter from './test.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,16 +37,16 @@ class RouterManager {
                 !file.startsWith('.')
             );
 
-            console.log(`📁 发现 ${routeFiles.length} 个路由文件: ${routeFiles.join(', ')}`);
-            logger.info(`发现 ${routeFiles.length} 个路由文件`);
+            // console.log(`📁 发现 ${routeFiles.length} 个路由文件: ${routeFiles.join(', ')}`);
+            // logger.info(`发现 ${routeFiles.length} 个路由文件`);
 
             // 逐个加载路由文件
             for (const file of routeFiles) {
                 await this.loadRouteFile(file);
             }
 
-            console.log('✅ 所有路由加载完成');
-            logger.info('所有路由加载成功');
+            // console.log('✅ 所有路由加载完成');
+            // logger.info('所有路由加载成功');
 
         } catch (error) {
             console.error('❌ 加载路由失败:', error.message);
@@ -61,7 +62,6 @@ class RouterManager {
     async loadRouteFile(filename) {
         try {
             const filePath = path.join(__dirname, filename);
-            console.log(`📂 正在加载路由文件: ${filename}`);
 
             // 动态导入路由模块
             const routeModule = await import(`file://${filePath}`);
@@ -75,14 +75,11 @@ class RouterManager {
                 const prefix = this.getRoutePrefix(routeName);
                 this.router.use(prefix, routeModule.default.routes(), routeModule.default.allowedMethods());
 
-                console.log(`   ✅ 路由 ${routeName} 加载成功，前缀: ${prefix}`);
                 logger.info(`路由 ${routeName} 加载成功，前缀: ${prefix}`);
             } else {
-                console.warn(`   ⚠️  路由文件 ${filename} 格式无效，缺少默认导出或routes方法`);
                 logger.warn(`路由文件 ${filename} 可能不是有效的路由模块`);
             }
         } catch (error) {
-            console.error(`   ❌ 加载路由文件 ${filename} 失败:`, error.message);
             logger.error(`加载路由文件 ${filename} 失败:`, error);
         }
     }
@@ -106,7 +103,6 @@ class RouterManager {
         };
 
         const prefix = prefixMap[routeName] || `/${routeName}`;
-        console.log(`   🏷️  路由 ${routeName} 使用前缀: ${prefix}`);
 
         return prefix;
     }
@@ -148,17 +144,18 @@ class RouterManager {
     }
 }
 
-// 创建路由管理器实例并加载路由
-console.log('🚀 正在初始化路由管理器...');
+// 创建路由管理器实例
 const routerManager = new RouterManager();
-await routerManager.loadRoutes();
 
-// 打印路由加载完成信息
-console.log('🎯 路由加载完成！');
-console.log('📋 可用路由:');
-const routeInfo = routerManager.getRouteInfo();
-routeInfo.forEach(route => {
-    console.log(`   • ${route.methods.join('|').toUpperCase()} ${route.path}`);
+// 初始化函数
+async function initializeRouter() {
+    await routerManager.loadRoutes();
+}
+
+// 立即初始化
+initializeRouter().catch(error => {
+    logger.error('路由初始化失败:', error);
+    process.exit(1);
 });
 
 export default routerManager.getRouter();
