@@ -1,6 +1,6 @@
-# Koa 项目 - API 服务
+# Koa 项目 - 用户管理 API
 
-基于 Koa.js 构建的现代化 Web API 服务，提供完整的 RESTful 接口和 Swagger 文档。
+基于 Koa.js 构建的简洁用户管理 API 服务，提供完整的用户 CRUD 操作和 Swagger 文档。
 
 ## 🚀 快速开始
 
@@ -32,34 +32,17 @@ npm start
 
 ## 📚 API 文档
 
-### Swagger UI 修复内容
+### 用户管理 API
 
-本次修复主要解决了以下问题：
+项目提供完整的用户 CRUD 操作：
 
-1. **CDN 链接优化**
+- **GET** `/api/users` - 获取用户列表（支持分页）
+- **POST** `/api/users` - 创建新用户
+- **GET** `/api/users/:id` - 根据ID获取用户详情
+- **PUT** `/api/users/:id` - 更新用户信息
+- **DELETE** `/api/users/:id` - 删除用户
 
-   - 将 unpkg.com 替换为更稳定的 cdn.jsdelivr.net
-   - 添加了 integrity 校验，提高安全性
-
-2. **错误处理增强**
-
-   - 添加了加载状态指示器
-   - 实现了自动重试机制（最多 3 次）
-   - 提供了友好的错误提示界面
-
-3. **用户体验改进**
-
-   - 添加了刷新按钮
-   - 优化了响应式设计
-   - 改进了侧边栏标签的交互效果
-   - 添加了页面可见性检测
-
-4. **功能增强**
-   - 支持展开/收起所有接口
-   - 添加了标签导航功能
-   - 优化了移动端显示效果
-
-### 访问方式
+### Swagger UI 访问
 
 1. **直接访问**: http://localhost:3000/public/swagger-ui.html
 2. **重定向访问**: http://localhost:3000/docs
@@ -92,17 +75,18 @@ koa-project/
 │   ├── services/       # 服务层
 │   └── utils/          # 工具函数
 ├── main.js             # 应用入口
+├── test-users.js       # 用户API测试
 └── package.json        # 项目配置
 ```
 
 ## 🔧 开发
 
-### 测试 Swagger 功能
+### 测试用户 API
 
-运行测试脚本验证 Swagger UI 是否正常工作：
+运行测试脚本验证用户 CRUD 功能：
 
 ```bash
-node test-swagger.js
+node test-users.js
 ```
 
 ### 添加新的 API 接口
@@ -135,7 +119,14 @@ node test-swagger.js
 
 ## 📝 更新日志
 
-### v1.0.0 (最新)
+### v1.1.0 (最新)
+
+- ✅ 精简项目结构，只保留用户 CRUD 功能
+- ✅ 移除批量操作和统计功能
+- ✅ 简化启动信息和日志输出
+- ✅ 优化代码结构，提高可维护性
+
+### v1.0.0
 
 - ✅ 修复 Swagger UI 加载问题
 - ✅ 优化 CDN 链接稳定性

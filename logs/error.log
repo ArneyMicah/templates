@@ -87,3 +87,44 @@
 2025-08-24 17:52:06 [[31merror[39m]: ❌ 启动服务器失败: Cannot find package 'koa-parameter' imported from E:\koa-project\src\middlewares\validate.js
 2025-08-24 17:53:25 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
 2025-08-24 17:56:29 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 20:42:15 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../controllers/user.controller.js' does not provide an export named 'createUser'
+2025-08-24 20:45:44 [[31merror[39m]: ❌ 启动服务器失败: BaseController is not a constructor
+2025-08-24 20:46:05 [[31merror[39m]: ❌ 启动服务器失败: Class extends value #<Object> is not a constructor or null
+2025-08-24 20:47:04 [[31merror[39m]: ❌ 启动服务器失败: BaseController is not a constructor
+2025-08-24 20:47:54 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:48:12 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:48:34 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:48:59 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:49:52 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:50:30 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:50:58 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:51:17 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:51:17 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:51:30 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:51:51 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:52:06 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\user.controller.js' imported from E:\koa-project\src\routes\user.js
+2025-08-24 20:52:10 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\user.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 20:52:20 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:52:29 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:53:26 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:53:27 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:53:39 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:53:40 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:55:38 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:56:11 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:56:14 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\docs\users.swagger.js' imported from E:\koa-project\docs\index.js
+2025-08-24 20:56:22 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:56:50 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:56:53 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:57:03 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:57:03 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:57:36 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:57:47 [[31merror[39m]: ❌ 启动服务器失败: The requested module '../services/user.service.js' does not provide an export named 'findById'
+2025-08-24 20:58:07 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 21:16:03 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 21:16:43 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 21:24:01 [[31merror[39m]: ❌ 启动服务器失败: databaseConfig is not defined
+2025-08-24 21:24:02 [[31merror[39m]: ❌ 启动服务器失败: databaseConfig is not defined
+2025-08-24 21:24:37 [[31merror[39m]: ❌ 启动服务器失败: databaseConfig is not defined
+2025-08-24 21:24:55 [[31merror[39m]: ❌ 启动服务器失败: securityConfig is not defined
+2025-08-24 21:26:14 [[31merror[39m]: 删除用户失败: 不能删除管理员用户

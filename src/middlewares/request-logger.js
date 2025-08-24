@@ -11,15 +11,15 @@ export const requestLogger = () => {
     const requestId = generateRequestId();
 
     // 记录请求开始
-    logger.info('请求开始', {
-      requestId,
-      method: ctx.method,
-      url: ctx.url,
-      ip: ctx.ip,
-      userAgent: ctx.get('User-Agent'),
-      contentType: ctx.get('Content-Type'),
-      contentLength: ctx.get('Content-Length')
-    });
+    // logger.info('请求开始', {
+    //   requestId,
+    //   method: ctx.method,
+    //   url: ctx.url,
+    //   ip: ctx.ip,
+    //   userAgent: ctx.get('User-Agent'),
+    //   contentType: ctx.get('Content-Type'),
+    //   contentLength: ctx.get('Content-Length')
+    // });
 
     // 记录请求体（仅对POST/PUT/PATCH请求且Content-Type为application/json）
     if (['POST', 'PUT', 'PATCH'].includes(ctx.method) && 

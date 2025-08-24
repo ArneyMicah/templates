@@ -142,7 +142,7 @@
     <script src="https://unpkg.com/swagger-ui-dist@5.18.2/swagger-ui-standalone-preset.js"></script>
 
     <script>
-        window.onload = function () {
+        window.onload = function() {
             SwaggerUIBundle({
                 url: '/swagger.json',
                 dom_id: '#swagger-ui',
@@ -150,7 +150,7 @@
                 presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
                 plugins: [SwaggerUIBundle.plugins.DownloadUrl],
                 layout: "StandaloneLayout",
-                onComplete: function () {
+                onComplete: function() {
                     generateTagList();
                     addCustomStyles();
                     setupEventListeners();
@@ -159,40 +159,47 @@
         };
 
         function generateTagList() {
-            const tagList = document.getElementById('api-tags');
-            if (!tagList) return;
+    const tagList = document.getElementById('api-tags');
+    if (!tagList) return;
 
-            const interval = setInterval(() => {
-                const allOpblocks = Array.from(document.querySelectorAll('.opblock'));
-                if (!allOpblocks.length) return;
+    const interval = setInterval(() => {
+        const allTagSections = Array.from(document.querySelectorAll('.opblock-tag-section'));
+        if (!allTagSections.length) return;
 
-                clearInterval(interval);
+        clearInterval(interval);
 
-                const tagNames = [...new Set(allOpblocks.map(op => op.querySelector('.opblock-tag')?.textContent?.trim()).filter(Boolean))];
+        allTagSections.forEach(section => {
+            const tagEl = section.querySelector('.opblock-tag');
+            if (!tagEl) return;
 
-                tagNames.forEach(tagName => {
-                    const opblocks = allOpblocks.filter(op => op.querySelector('.opblock-tag')?.textContent?.trim() === tagName);
+            // 取 <span> 的文字
+            const tagName = tagEl.querySelector('span')?.textContent.trim() || '未命名分类';
+            const opblocks = Array.from(section.querySelectorAll('.opblock'));
 
-                    const tagItem = document.createElement('a');
-                    tagItem.href = `#${encodeURIComponent(tagName)}`;
-                    tagItem.className = 'list-group-item list-group-item-action d-flex flex-column align-items-center justify-content-center';
-                    tagItem.style.cursor = 'pointer';
-                    tagItem.innerHTML = `
-                        <div><strong>${tagName}</strong></div>
-                        <span class="badge bg-primary rounded-pill">${opblocks.length}</span>
-                    `;
+            const tagItem = document.createElement('a');
+            tagItem.href = `#${encodeURIComponent(tagName)}`;
+            tagItem.className = 'list-group-item list-group-item-action d-flex flex-column align-items-center justify-content-center';
+            tagItem.style.cursor = 'pointer';
 
-                    tagItem.addEventListener('click', e => {
-                        e.preventDefault();
-                        if (opblocks.length > 0) {
-                            opblocks[0].scrollIntoView({ behavior: 'smooth' });
-                        }
-                    });
+            tagItem.innerHTML = `
+    <div class="d-flex w-100 justify-content-between align-items-center">
+        <strong class="text-dark">${tagName}</strong>
+        <span class="badge bg-primary rounded-pill">${opblocks.length}</span>
+    </div>
+`;
 
-                    tagList.appendChild(tagItem);
-                });
-            }, 100);
-        }
+
+            tagItem.addEventListener('click', e => {
+                e.preventDefault();
+                tagEl.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            tagList.appendChild(tagItem);
+        });
+    }, 100);
+}
+
+
 
         function addCustomStyles() {
             document.querySelectorAll('.opblock').forEach(block => {
@@ -223,8 +230,8 @@
         }
 
         function setupEventListeners() {
-            document.getElementById('expand-all-btn')?.addEventListener('click', expandAll);
-            document.getElementById('collapse-all-btn')?.addEventListener('click', collapseAll);
+            document.getElementById('expand-all-btn') ?.addEventListener('click', expandAll);
+            document.getElementById('collapse-all-btn') ?.addEventListener('click', collapseAll);
         }
     </script>
 </body>

@@ -1,4 +1,4 @@
-import { userPaths } from './users.swagger.js';
+import { userPaths, userSchemas } from './user.swagger.js';
 import { healthPaths } from './health.swagger.js';
 
 /**
@@ -8,6 +8,15 @@ export function getAllSwaggerPaths() {
     return {
         ...userPaths,
         ...healthPaths
+    };
+}
+
+/**
+ * 获取所有 Swagger Schema
+ */
+export function getAllSwaggerSchemas() {
+    return {
+        ...userSchemas
     };
 }
 
