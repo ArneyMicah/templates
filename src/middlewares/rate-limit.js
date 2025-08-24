@@ -31,20 +31,10 @@ export const rateLimit = () => {
     async getKey(ctx) {
       // 根据IP地址进行限流
       const key = ctx.ip;
-      console.log(`🔒 限流检查 - IP: ${key}`);
       return key;
     },
     // 限流触发时的处理
     async afterLimit(ctx, next) {
-      const key = ctx.ip;
-      const remaining = ctx.get('X-RateLimit-Remaining');
-
-      if (remaining <= 0) {
-        console.warn(`⚠️  触发限流 - IP: ${key}, 剩余次数: ${remaining}`);
-      } else {
-        console.log(`✅ 限流通过 - IP: ${key}, 剩余次数: ${remaining}`);
-      }
-
       await next();
     }
   });

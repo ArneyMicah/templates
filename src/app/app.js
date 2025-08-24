@@ -1,117 +1,111 @@
+// src/app/app.js
 import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import helmet from 'koa-helmet';
 import compress from 'koa-compress';
+import staticServe from 'koa-static';
+import mount from 'koa-mount';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// 导入自定义中间件
+// 自定义中间件
 import { errorHandler } from '../middlewares/error-handler.js';
 import { requestLogger } from '../middlewares/request-logger.js';
 import { responseTime } from '../middlewares/response-time.js';
 import { rateLimit } from '../middlewares/rate-limit.js';
 import { validate } from '../middlewares/validate.js';
 
-// 导入路由和日志工具
+// 路由
 import router from '../routes/index.js';
+
+// 用户路由
+import userRouter from '../routes/user-traditional.js';
+
+// 日志工具
 import logger from '../utils/logger.js';
 
-/**
- * Koa应用主类
- * 负责配置中间件、路由和错误处理
- */
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 class App {
   constructor() {
     this.app = new Koa();
-    console.log('🔧 正在初始化Koa应用...');
 
-    // 设置应用配置
+    // 配置中间件
     this.setupMiddlewares();
-    this.setupRoutes();
-    this.setupErrorHandling();
 
-    console.log('✅ Koa应用初始化完成');
+    // 配置路由
+    this.setupRoutes();
+
+    // 配置错误处理
+    this.setupErrorHandling();
   }
 
-  /**
-   * 配置中间件
-   * 按顺序添加各种中间件
-   */
   setupMiddlewares() {
-    console.log('📦 正在配置中间件...');
+    // 安全中间件 - 配置CSP以允许Swagger UI
+    this.app.use(helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+          styleSrc: ["'self'", "'unsafe-inline'", "https://unpkg.com"],
+          imgSrc: ["'self'", "data:", "https:"],
+          connectSrc: ["'self'"],
+          fontSrc: ["'self'", "https://unpkg.com"],
+          objectSrc: ["'none'"],
+          mediaSrc: ["'self'"],
+          frameSrc: ["'none'"],
+        },
+      },
+    }));
 
-    // 安全中间件 - 设置安全头
-    this.app.use(helmet());
-    console.log('   ✅ 安全中间件 (helmet) 已配置');
-
-    // 压缩响应中间件 - 压缩响应数据
+    // 压缩响应
     this.app.use(compress());
-    console.log('   ✅ 压缩中间件 (compress) 已配置');
 
-    // CORS中间件 - 处理跨域请求
+    // CORS
     this.app.use(cors({
       origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
       credentials: true
     }));
-    console.log('   ✅ CORS中间件已配置');
 
-    // 请求体解析中间件 - 解析JSON和表单数据
+    // 请求体解析
     this.app.use(bodyParser({
       enableTypes: ['json', 'form'],
       jsonLimit: '10mb',
       formLimit: '10mb'
     }));
-    console.log('   ✅ 请求体解析中间件已配置');
 
-    // 自定义中间件
-    this.app.use(responseTime());    // 响应时间记录
-    this.app.use(requestLogger());   // 请求日志记录
-    this.app.use(rateLimit());      // 限流控制
-    this.app.use(validate());       // 请求验证
-    console.log('   ✅ 自定义中间件已配置');
+    // 静态文件（挂载 /public 前缀）
+    const publicPath = path.join(__dirname, "../../public");
+    this.app.use(mount('/public', staticServe(publicPath)));
+
+    // 自定义中间件（确保返回函数）
+    this.app.use(responseTime());
+    this.app.use(requestLogger());
+    this.app.use(rateLimit());
+    this.app.use(validate());
   }
 
-  /**
-   * 配置路由
-   * 添加API路由到应用
-   */
   setupRoutes() {
-    console.log('🛣️  正在配置路由...');
+    // 配置用户路由
+    this.app.use(userRouter.routes());
+    this.app.use(userRouter.allowedMethods());
 
-    // 添加路由中间件
+    // 配置普通路由
     this.app.use(router.routes());
     this.app.use(router.allowedMethods());
-
-    console.log('   ✅ 路由配置完成');
   }
 
-  /**
-   * 配置错误处理
-   * 添加全局错误处理中间件
-   */
   setupErrorHandling() {
-    console.log('🚨 正在配置错误处理...');
-
-    // 添加错误处理中间件
+    // 错误处理中间件放到最后
     this.app.use(errorHandler());
-
-    console.log('   ✅ 错误处理配置完成');
   }
 
-  /**
-   * 启动应用
-   * @param {number} port - 监听端口
-   * @returns {Promise<import('http').Server>}
-   */
-  async start(port) {
+  async start(port = 3003) {
     try {
-      console.log(`🚀 正在启动应用，端口: ${port}`);
-
-      // 启动HTTP服务器
       await this.app.listen(port);
-
       logger.info(`应用启动成功，监听端口: ${port}`);
-      console.log(`✅ 应用启动成功！监听端口: ${port}`);
-
       return this.app;
     } catch (error) {
       logger.error('应用启动失败:', error);
@@ -120,16 +114,9 @@ class App {
     }
   }
 
-  /**
-   * 获取应用实例
-   * @returns {Koa}
-   */
   getApp() {
     return this.app;
   }
 }
 
 export default App;
-
-
-

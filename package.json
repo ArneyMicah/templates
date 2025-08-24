@@ -1,44 +1,44 @@
 {
-  "name": "koa-project",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "main.js",
-  "scripts": {
-    "start": "node main.js",
-    "dev": "nodemon main.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint src/",
-    "lint:fix": "eslint src/ --fix",
-    "format": "prettier --write src/",
-    "build": "babel src -d dist",
-    "clean": "rimraf dist logs/*.log",
-    "migrate": "sequelize-cli db:migrate",
-    "seed": "sequelize-cli db:seed:all"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "@koa/cors": "^5.0.0",
-    "@koa/router": "^14.0.0",
-    "dotenv": "^17.2.1",
-    "ioredis": "^5.7.0",
-    "jsonwebtoken": "^9.0.2",
-    "koa": "^3.0.1",
-    "koa-body": "^6.0.1",
-    "koa-bodyparser": "^4.4.1",
-    "koa-compress": "^5.1.1",
-    "koa-helmet": "^8.0.1",
-    "koa-parameter": "^3.0.1",
-    "koa-ratelimit": "^6.0.0",
-    "koa-router": "^14.0.0",
-    "winston": "^3.17.0"
-  },
-  "devDependencies": {
-    "koa-swagger-decorator": "^1.8.7",
-    "koa2-swagger-ui": "^5.11.0",
-    "nodemon": "^3.1.10"
-  }
+    "name": "koa-project",
+    "version": "1.0.0",
+    "type": "module",
+    "main": "main.js",
+    "scripts": {
+        "start": "node main.js",
+        "dev": "nodemon main.js",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:coverage": "jest --coverage",
+        "test:integration": "node tests/integration/user-crud.test.js",
+        "test:swagger": "node tests/integration/swagger.test.js",
+        "test:csp": "node tests/integration/csp.test.js",
+        "lint": "eslint src/",
+        "lint:fix": "eslint src/ --fix",
+        "format": "prettier --write src/",
+        "clean": "rimraf logs/*.log"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": "基于Koa.js构建的现代化Web API服务",
+    "dependencies": {
+        "@koa/cors": "^5.0.0",
+        "@koa/router": "^14.0.0",
+        "dotenv": "^17.2.1",
+        "jsonwebtoken": "^9.0.2",
+        "koa": "^3.0.1",
+        "koa-bodyparser": "^4.4.1",
+        "koa-compress": "^5.1.1",
+        "koa-helmet": "^8.0.1",
+        "koa-mount": "^4.2.0",
+        "koa-parameter": "^3.0.1",
+        "koa-ratelimit": "^6.0.0",
+        "koa-router": "^14.0.0",
+        "koa-static": "^5.0.0",
+        "koa-swagger-decorator": "^1.8.7",
+        "winston": "^3.17.0"
+    },
+    "devDependencies": {
+        "koa2-swagger-ui": "^5.11.0",
+        "nodemon": "^3.1.10"
+    }
 }

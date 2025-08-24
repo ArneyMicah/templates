@@ -17,3 +17,18 @@
 2025-08-23 21:12:47 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
 2025-08-23 21:14:14 [[31merror[39m]: Failed to load route file swagger.js: window is not defined
 2025-08-23 21:15:17 [[31merror[39m]: Uncaught Exception: listen EADDRINUSE: address already in use :::3001
+2025-08-23 22:22:25 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-23 22:22:37 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 10:55:23 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:55:32 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:55:48 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:55:58 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:56:03 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:56:58 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:06 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:17 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:18 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:40 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:52 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:57:53 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 10:59:17 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
