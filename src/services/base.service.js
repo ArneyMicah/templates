@@ -1,124 +1,100 @@
-import logger from '../utils/logger.js';
-
+/**
+ * 基础服务类
+ * 提供通用的服务方法
+ */
 export class BaseService {
-  constructor(model) {
-    this.model = model;
-  }
-
-  async create(data) {
-    try {
-      const result = await this.model.create(data);
-      logger.info(`Created ${this.model.name} with ID: ${result.id}`);
-      return result;
-    } catch (error) {
-      logger.error(`Failed to create ${this.model.name}:`, error);
-      throw error;
+    constructor() {
+        this.data = [];
     }
-  }
 
-  async findById(id) {
-    try {
-      const result = await this.model.findByPk(id);
-      if (!result) {
-        throw new Error(`${this.model.name} not found with ID: ${id}`);
-      }
-      return result;
-    } catch (error) {
-      logger.error(`Failed to find ${this.model.name} by ID ${id}:`, error);
-      throw error;
+    /**
+     * 创建记录
+     * @param {Object} data - 要创建的数据
+     * @returns {Object} 创建的记录
+     */
+    create(data) {
+        const newRecord = {
+            id: this.data.length + 1,
+            ...data,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+        };
+        
+        this.data.push(newRecord);
+        return newRecord;
     }
-  }
 
-  async findAll(options = {}) {
-    try {
-      const { where, order, limit, offset, include } = options;
-      const result = await this.model.findAll({
-        where,
-        order,
-        limit,
-        offset,
-        include
-      });
-      return result;
-    } catch (error) {
-      logger.error(`Failed to find all ${this.model.name}:`, error);
-      throw error;
+    /**
+     * 根据ID查找记录
+     * @param {number} id - 记录ID
+     * @returns {Object|null} 找到的记录或null
+     */
+    findById(id) {
+        return this.data.find(item => item.id === parseInt(id)) || null;
     }
-  }
 
-  async update(id, data) {
-    try {
-      const [updatedCount] = await this.model.update(data, {
-        where: { id }
-      });
-      
-      if (updatedCount === 0) {
-        throw new Error(`${this.model.name} not found with ID: ${id}`);
-      }
-      
-      logger.info(`Updated ${this.model.name} with ID: ${id}`);
-      return await this.findById(id);
-    } catch (error) {
-      logger.error(`Failed to update ${this.model.name} with ID ${id}:`, error);
-      throw error;
+    /**
+     * 获取所有记录
+     * @param {Object} options - 查询选项
+     * @returns {Array} 记录列表
+     */
+    findAll(options = {}) {
+        let result = [...this.data];
+        
+        // 简单的分页处理
+        if (options.limit && options.offset !== undefined) {
+            result = result.slice(options.offset, options.offset + options.limit);
+        }
+        
+        return result;
     }
-  }
 
-  async delete(id) {
-    try {
-      const deletedCount = await this.model.destroy({
-        where: { id }
-      });
-      
-      if (deletedCount === 0) {
-        throw new Error(`${this.model.name} not found with ID: ${id}`);
-      }
-      
-      logger.info(`Deleted ${this.model.name} with ID: ${id}`);
-      return { success: true, deletedCount };
-    } catch (error) {
-      logger.error(`Failed to delete ${this.model.name} with ID ${id}:`, error);
-      throw error;
+    /**
+     * 更新记录
+     * @param {number} id - 记录ID
+     * @param {Object} data - 要更新的数据
+     * @returns {Object|null} 更新后的记录或null
+     */
+    update(id, data) {
+        const index = this.data.findIndex(item => item.id === parseInt(id));
+        
+        if (index === -1) {
+            return null;
+        }
+        
+        this.data[index] = {
+            ...this.data[index],
+            ...data,
+            id: parseInt(id),
+            updatedAt: new Date().toISOString()
+        };
+        
+        return this.data[index];
     }
-  }
 
-  async count(where = {}) {
-    try {
-      return await this.model.count({ where });
-    } catch (error) {
-      logger.error(`Failed to count ${this.model.name}:`, error);
-      throw error;
+    /**
+     * 删除记录
+     * @param {number} id - 记录ID
+     * @returns {Object|null} 删除的记录或null
+     */
+    delete(id) {
+        const index = this.data.findIndex(item => item.id === parseInt(id));
+        
+        if (index === -1) {
+            return null;
+        }
+        
+        return this.data.splice(index, 1)[0];
     }
-  }
 
-  async findOne(where = {}) {
-    try {
-      return await this.model.findOne({ where });
-    } catch (error) {
-      logger.error(`Failed to find one ${this.model.name}:`, error);
-      throw error;
+    /**
+     * 统计记录数量
+     * @param {Object} filters - 过滤条件
+     * @returns {number} 记录数量
+     */
+    count(filters = {}) {
+        return this.data.length;
     }
-  }
-
-  async bulkCreate(dataArray) {
-    try {
-      const result = await this.model.bulkCreate(dataArray);
-      logger.info(`Bulk created ${result.length} ${this.model.name} records`);
-      return result;
-    } catch (error) {
-      logger.error(`Failed to bulk create ${this.model.name}:`, error);
-      throw error;
-    }
-  }
-
-  async transaction(callback) {
-    try {
-      return await this.model.sequelize.transaction(callback);
-    } catch (error) {
-      logger.error(`Transaction failed for ${this.model.name}:`, error);
-      throw error;
-    }
-  }
 }
 
 

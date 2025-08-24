@@ -1,73 +1,114 @@
+import Joi from 'joi';
+import logger from '../utils/logger.js';
+
 /**
- * 请求验证中间件
- * 验证请求的格式和内容类型
- * @returns {Function} Koa中间件函数
+ * 参数验证中间件
+ * 使用 Joi 进行参数验证
  */
-export const validate = () => {
-  return async (ctx, next) => {
-    const method = ctx.method;
-    const contentType = ctx.get('Content-Type');
+export function validate() {
+    return async (ctx, next) => {
+        try {
+            await next();
+        } catch (error) {
+            // 如果是参数验证错误
+            if (error.isJoi) {
+                logger.warn('参数验证失败:', {
+                    path: ctx.path,
+                    method: ctx.method,
+                    error: error.message,
+                    body: ctx.request.body,
+                    query: ctx.query,
+                    params: ctx.params
+                });
 
-    // 对于POST、PUT、PATCH请求，验证Content-Type
-    if (['POST', 'PUT', 'PATCH'].includes(method)) {
-      if (!contentType) {
-        ctx.status = 400;
-        ctx.body = {
-          success: false,
-          error: {
-            message: '请求缺少Content-Type头',
-            code: 'MISSING_CONTENT_TYPE',
-            required: 'application/json 或 application/x-www-form-urlencoded'
-          }
-        };
-        return;
-      }
+                ctx.status = 422;
+                ctx.body = {
+                    code: 422,
+                    message: '参数验证失败',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                };
+                return;
+            }
 
-      // 检查Content-Type是否支持
-      const supportedTypes = [
-        'application/json',
-        'application/x-www-form-urlencoded',
-        'multipart/form-data'
-      ];
-
-      const isSupported = supportedTypes.some(type =>
-        contentType.includes(type)
-      );
-
-      if (!isSupported) {
-        ctx.status = 415;
-        ctx.body = {
-          success: false,
-          error: {
-            message: '不支持的Content-Type',
-            code: 'UNSUPPORTED_CONTENT_TYPE',
-            received: contentType,
-            supported: supportedTypes
-          }
-        };
-        return;
-      }
-    }
-
-    // 验证请求体大小（如果有的话）
-    const contentLength = parseInt(ctx.get('Content-Length') || '0');
-    const maxSize = 10 * 1024 * 1024; // 10MB
-
-    if (contentLength > maxSize) {
-      ctx.status = 413;
-      ctx.body = {
-        success: false,
-        error: {
-          message: '请求体过大',
-          code: 'PAYLOAD_TOO_LARGE',
-          received: `${contentLength} bytes`,
-          maxAllowed: `${maxSize} bytes`
+            // 其他错误继续抛出
+            throw error;
         }
-      };
-      return;
-    }
+    };
+}
 
-    // 验证通过，继续执行
-    await next();
-  };
-};
+/**
+ * 创建验证器函数
+ * @param {Object} schema - Joi 验证模式
+ * @param {string} type - 验证类型 ('body', 'query', 'params')
+ * @returns {Function} 验证中间件函数
+ */
+export function createValidator(schema, type = 'body') {
+    return async (ctx, next) => {
+        try {
+            let data;
+            switch (type) {
+                case 'body':
+                    data = ctx.request.body;
+                    break;
+                case 'query':
+                    data = ctx.query;
+                    break;
+                case 'params':
+                    data = ctx.params;
+                    break;
+                default:
+                    data = ctx.request.body;
+            }
+
+            // 执行验证
+            const { error, value } = schema.validate(data, {
+                abortEarly: false,
+                allowUnknown: true,
+                stripUnknown: true
+            });
+
+            if (error) {
+                logger.warn('参数验证失败:', {
+                    path: ctx.path,
+                    method: ctx.method,
+                    type,
+                    errors: error.details
+                });
+
+                ctx.status = 422;
+                ctx.body = {
+                    code: 422,
+                    message: '参数验证失败',
+                    errors: error.details.map(detail => ({
+                        field: detail.path.join('.'),
+                        message: detail.message
+                    }))
+                };
+                return;
+            }
+
+            // 将验证后的数据重新赋值
+            switch (type) {
+                case 'body':
+                    ctx.request.body = value;
+                    break;
+                case 'query':
+                    ctx.query = value;
+                    break;
+                case 'params':
+                    ctx.params = value;
+                    break;
+            }
+
+            await next();
+        } catch (error) {
+            logger.error('验证中间件错误:', error);
+            throw error;
+        }
+    };
+}
+
+export default validate;

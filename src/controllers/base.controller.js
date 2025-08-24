@@ -1,162 +1,73 @@
-import logger from '../utils/logger.js';
-import { HTTP_STATUS } from '../constants/http-status.js';
+import { HTTP_STATUS, MESSAGES } from '../constants/index.js';
 
+/**
+ * 基础控制器类
+ * 提供通用的响应方法
+ */
 export class BaseController {
-  constructor(service) {
-    this.service = service;
-  }
-
-  // 成功响应
-  success(ctx, data = null, message = 'Success', status = HTTP_STATUS.OK) {
-    ctx.status = status;
-    ctx.body = {
-      success: true,
-      message,
-      data,
-      timestamp: new Date().toISOString()
-    };
-  }
-
-  // 错误响应
-  error(ctx, message = 'Internal Server Error', status = HTTP_STATUS.INTERNAL_SERVER_ERROR, error = null) {
-    ctx.status = status;
-    ctx.body = {
-      success: false,
-      message,
-      error: error?.message || error,
-      timestamp: new Date().toISOString()
-    };
-    
-    if (error) {
-      logger.error(`Controller error: ${message}`, error);
+    /**
+     * 成功响应
+     * @param {Object} ctx - Koa上下文
+     * @param {*} data - 响应数据
+     * @param {string} message - 响应消息
+     * @param {number} status - HTTP状态码
+     */
+    success(ctx, data = null, message = MESSAGES.SUCCESS, status = HTTP_STATUS.OK) {
+        ctx.status = status;
+        ctx.body = {
+            success: true,
+            message,
+            data,
+            timestamp: new Date().toISOString()
+        };
     }
-  }
 
-  // 分页响应
-  paginated(ctx, data, page, limit, total, message = 'Success') {
-    ctx.status = HTTP_STATUS.OK;
-    ctx.body = {
-      success: true,
-      message,
-      data,
-      pagination: {
-        page: parseInt(page),
-        limit: parseInt(limit),
-        total,
-        pages: Math.ceil(total / limit)
-      },
-      timestamp: new Date().toISOString()
-    };
-  }
-
-  // 创建资源
-  async create(ctx) {
-    try {
-      const data = ctx.request.body;
-      const result = await this.service.create(data);
-      this.success(ctx, result, 'Created successfully', HTTP_STATUS.CREATED);
-    } catch (error) {
-      this.error(ctx, 'Failed to create resource', HTTP_STATUS.BAD_REQUEST, error);
+    /**
+     * 错误响应
+     * @param {Object} ctx - Koa上下文
+     * @param {string} message - 错误消息
+     * @param {number} status - HTTP状态码
+     * @param {*} data - 错误详情
+     */
+    error(ctx, message = MESSAGES.FAILED, status = HTTP_STATUS.BAD_REQUEST, data = null) {
+        ctx.status = status;
+        ctx.body = {
+            success: false,
+            message,
+            data,
+            timestamp: new Date().toISOString()
+        };
     }
-  }
 
-  // 获取单个资源
-  async getById(ctx) {
-    try {
-      const { id } = ctx.params;
-      const result = await this.service.findById(id);
-      this.success(ctx, result, 'Resource found');
-    } catch (error) {
-      if (error.message.includes('not found')) {
-        this.error(ctx, 'Resource not found', HTTP_STATUS.NOT_FOUND, error);
-      } else {
-        this.error(ctx, 'Failed to get resource', HTTP_STATUS.INTERNAL_SERVER_ERROR, error);
-      }
+    /**
+     * 分页响应
+     * @param {Object} ctx - Koa上下文
+     * @param {Array} data - 数据列表
+     * @param {number} total - 总数
+     * @param {number} page - 当前页
+     * @param {number} limit - 每页数量
+     */
+    paginate(ctx, data, total, page, limit) {
+        const totalPages = Math.ceil(total / limit);
+        
+        ctx.status = HTTP_STATUS.OK;
+        ctx.body = {
+            success: true,
+            message: MESSAGES.SUCCESS,
+            data: {
+                list: data,
+                pagination: {
+                    total,
+                    page,
+                    limit,
+                    totalPages,
+                    hasNext: page < totalPages,
+                    hasPrev: page > 1
+                }
+            },
+            timestamp: new Date().toISOString()
+        };
     }
-  }
-
-  // 获取所有资源
-  async getAll(ctx) {
-    try {
-      const { page = 1, limit = 10, ...filters } = ctx.query;
-      const offset = (page - 1) * limit;
-      
-      const [data, total] = await Promise.all([
-        this.service.findAll({ ...filters, limit: parseInt(limit), offset }),
-        this.service.count(filters)
-      ]);
-      
-      this.paginated(ctx, data, page, limit, total, 'Resources retrieved successfully');
-    } catch (error) {
-      this.error(ctx, 'Failed to get resources', HTTP_STATUS.INTERNAL_SERVER_ERROR, error);
-    }
-  }
-
-  // 更新资源
-  async update(ctx) {
-    try {
-      const { id } = ctx.params;
-      const data = ctx.request.body;
-      const result = await this.service.update(id, data);
-      this.success(ctx, result, 'Updated successfully');
-    } catch (error) {
-      if (error.message.includes('not found')) {
-        this.error(ctx, 'Resource not found', HTTP_STATUS.NOT_FOUND, error);
-      } else {
-        this.error(ctx, 'Failed to update resource', HTTP_STATUS.BAD_REQUEST, error);
-      }
-    }
-  }
-
-  // 删除资源
-  async delete(ctx) {
-    try {
-      const { id } = ctx.params;
-      const result = await this.service.delete(id);
-      this.success(ctx, result, 'Deleted successfully');
-    } catch (error) {
-      if (error.message.includes('not found')) {
-        this.error(ctx, 'Resource not found', HTTP_STATUS.NOT_FOUND, error);
-      } else {
-        this.error(ctx, 'Failed to delete resource', HTTP_STATUS.INTERNAL_SERVER_ERROR, error);
-      }
-    }
-  }
-
-  // 批量操作
-  async bulkOperation(ctx, operation) {
-    try {
-      const { ids, ...data } = ctx.request.body;
-      
-      if (!ids || !Array.isArray(ids) || ids.length === 0) {
-        return this.error(ctx, 'Invalid IDs provided', HTTP_STATUS.BAD_REQUEST);
-      }
-      
-      const results = await Promise.all(
-        ids.map(id => operation(id, data))
-      );
-      
-      this.success(ctx, results, 'Bulk operation completed successfully');
-    } catch (error) {
-      this.error(ctx, 'Bulk operation failed', HTTP_STATUS.INTERNAL_SERVER_ERROR, error);
-    }
-  }
-
-  // 验证请求数据
-  validateRequest(ctx, schema) {
-    try {
-      const { error, value } = schema.validate(ctx.request.body);
-      if (error) {
-        this.error(ctx, 'Validation failed', HTTP_STATUS.BAD_REQUEST, error);
-        return false;
-      }
-      ctx.request.body = value;
-      return true;
-    } catch (error) {
-      this.error(ctx, 'Validation error', HTTP_STATUS.BAD_REQUEST, error);
-      return false;
-    }
-  }
 }
 
 

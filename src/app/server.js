@@ -1,10 +1,7 @@
 import App from './app.js';
 import logger from '../utils/logger.js';
-
-// 动态导入配置文件
-const env = process.env.NODE_ENV || 'development';
-const configModule = await import(`../config/config.${env}.js`);
-const { APP_PORT } = configModule;
+import { app as appConfig } from '../config/global.js';
+import databaseManager from '../database/index.js';
 
 /**
  * 服务器管理类
@@ -14,7 +11,7 @@ class Server {
   constructor() {
     this.app = new App(); // 创建Koa应用实例
     this.server = null;   // 存储HTTP服务器实例
-    this.port = APP_PORT; // 存储端口号
+    this.port = appConfig.port; // 从全局配置获取端口号
   }
 
   /**
@@ -23,6 +20,9 @@ class Server {
    */
   async start() {
     try {
+      // 初始化数据库连接
+      await this.initializeDatabase();
+
       // 启动应用并监听指定端口
       this.server = await this.app.start(this.port);
 
@@ -39,28 +39,52 @@ class Server {
   }
 
   /**
+   * 初始化数据库连接
+   * @returns {Promise<void>}
+   */
+  async initializeDatabase() {
+    try {
+      const connected = await databaseManager.connect();
+      if (!connected) {
+        logger.warn('数据库连接失败，但服务器将继续启动');
+      }
+    } catch (error) {
+      logger.error('初始化数据库失败:', error);
+      // 数据库连接失败不应该阻止服务器启动
+    }
+  }
+
+  /**
    * 设置优雅关闭处理
    * 处理各种进程信号和异常情况
    */
   setupGracefulShutdown() {
-    const shutdown = (signal) => {
+    const shutdown = async (signal) => {
       logger.info(`收到信号: ${signal}，开始优雅关闭...`);
 
-      if (this.server && typeof this.server.close === 'function') {
-        // 关闭HTTP服务器
-        this.server.close(() => {
-          logger.info('服务器关闭成功');
-          process.exit(0);
-        });
+      try {
+        // 关闭数据库连接
+        await databaseManager.disconnect();
 
-        // 设置强制关闭超时（10秒）
-        setTimeout(() => {
-          logger.error('无法在指定时间内关闭连接，强制关闭');
-          process.exit(1);
-        }, 10000);
-      } else {
-        logger.info('服务器未运行，直接退出');
-        process.exit(0);
+        if (this.server && typeof this.server.close === 'function') {
+          // 关闭HTTP服务器
+          this.server.close(() => {
+            logger.info('服务器关闭成功');
+            process.exit(0);
+          });
+
+          // 设置强制关闭超时（10秒）
+          setTimeout(() => {
+            logger.error('无法在指定时间内关闭连接，强制关闭');
+            process.exit(1);
+          }, 10000);
+        } else {
+          logger.info('服务器未运行，直接退出');
+          process.exit(0);
+        }
+      } catch (error) {
+        logger.error('优雅关闭过程中发生错误:', error);
+        process.exit(1);
       }
     };
 

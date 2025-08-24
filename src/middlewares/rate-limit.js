@@ -1,4 +1,5 @@
 import koaRateLimit from 'koa-ratelimit';
+import { security as securityConfig } from '../config/global.js';
 
 /**
  * API限流中间件
@@ -12,8 +13,8 @@ export const rateLimit = () => {
   return koaRateLimit({
     driver: 'memory',
     db: db,
-    duration: 60000, // 限流时间窗口：1分钟
-    max: 100,        // 最大请求次数：100次/分钟
+    duration: securityConfig.rateLimitWindow, // 从全局配置获取限流时间窗口
+    max: securityConfig.rateLimitMax,        // 从全局配置获取最大请求次数
     errorMessage: {
       success: false,
       error: {
@@ -23,7 +24,7 @@ export const rateLimit = () => {
       }
     },
     headers: {
-      'X-RateLimit-Limit': '100',
+      'X-RateLimit-Limit': securityConfig.rateLimitMax.toString(),
       'X-RateLimit-Remaining': 'remaining',
       'X-RateLimit-Reset': 'reset'
     },

@@ -32,3 +32,58 @@
 2025-08-24 10:57:52 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
 2025-08-24 10:57:53 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
 2025-08-24 10:59:17 [[31merror[39m]: 加载路由文件 user.js 失败: Invalid or unexpected token
+2025-08-24 15:32:36 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 15:32:46 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 15:32:55 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 15:33:09 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 15:33:27 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 15:33:38 [[31merror[39m]: 加载用户路由失败: Cannot find module 'E:\koa-project\src\services\user.service.js' imported from E:\koa-project\src\routes\user-traditional.js
+2025-08-24 17:11:26 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\user-traditional.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:11:32 [[31merror[39m]: ❌ 启动服务器失败: Invalid or unexpected token
+2025-08-24 17:12:07 [[31merror[39m]: ❌ 启动服务器失败: Invalid or unexpected token
+2025-08-24 17:12:07 [[31merror[39m]: ❌ 启动服务器失败: Invalid or unexpected token
+2025-08-24 17:12:23 [[31merror[39m]: ❌ 启动服务器失败: Invalid or unexpected token
+2025-08-24 17:12:24 [[31merror[39m]: ❌ 启动服务器失败: Invalid or unexpected token
+2025-08-24 17:12:43 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\user-decorator.controller.js' imported from E:\koa-project\src\routes\users.js
+2025-08-24 17:12:46 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\user-decorator.controller.js' imported from E:\koa-project\src\routes\users.js
+2025-08-24 17:12:50 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\user.controller.js' imported from E:\koa-project\src\routes\users.js
+2025-08-24 17:12:57 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:13:03 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:13:54 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:13:55 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:14:22 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:14:23 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:14:31 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:14:32 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\users.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:14:40 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\product.controller.js' imported from E:\koa-project\src\routes\product.js
+2025-08-24 17:15:24 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\product.controller.js' imported from E:\koa-project\src\routes\product.js
+2025-08-24 17:15:27 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\product.controller.js' imported from E:\koa-project\src\routes\product.js
+2025-08-24 17:15:45 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\product.controller.js' imported from E:\koa-project\src\routes\product.js
+2025-08-24 17:15:46 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\controllers\product.controller.js' imported from E:\koa-project\src\routes\product.js
+2025-08-24 17:16:11 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\routes\product.js' imported from E:\koa-project\src\routes\index.js
+2025-08-24 17:16:32 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:16:56 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:17:00 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:17:05 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:21:21 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:21:38 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:22:04 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:22:05 [[31merror[39m]: 加载产品路由失败: productRouter is not defined
+2025-08-24 17:32:08 [[31merror[39m]: 加载Swagger文档失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:32:15 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:32:27 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:32:47 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:32:50 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:33:13 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:33:19 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:33:31 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:33:53 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:34:02 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:34:10 [[31merror[39m]: ❌ 启动服务器失败: Cannot find module 'E:\koa-project\src\docs\index.js' imported from E:\koa-project\src\app\app.js
+2025-08-24 17:43:04 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 17:44:01 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 17:47:41 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 17:51:42 [[31merror[39m]: ❌ 启动服务器失败: Cannot find package 'koa-parameter' imported from E:\koa-project\src\middlewares\validate.js
+2025-08-24 17:52:06 [[31merror[39m]: ❌ 启动服务器失败: Cannot find package 'koa-parameter' imported from E:\koa-project\src\middlewares\validate.js
+2025-08-24 17:53:25 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000
+2025-08-24 17:56:29 [[31merror[39m]: 未捕获的异常: listen EADDRINUSE: address already in use :::3000

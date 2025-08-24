@@ -1,550 +1,286 @@
-import * as userService from "../services/user.service.js";
-import { HTTP_STATUS, MESSAGES } from "../constants/index.js";
-import pkg from 'koa-swagger-decorator';
-const { request, summary, tags, body, responses, path, query } = pkg;
-
-const tag = tags(['用户管理']);
-
 /**
  * 用户控制器
- * 提供用户相关的API接口
+ * 处理用户相关的HTTP请求
  */
-export default class UserController {
+
+import { BaseController } from './base.controller.js';
+import { UserService } from '../services/user.service.js';
+import { HTTP_STATUS, MESSAGES } from '../constants/index.js';
+
+export class UserController extends BaseController {
+    constructor() {
+        super();
+        this.userService = new UserService();
+    }
 
     /**
-     * 获取用户列表
+     * 获取所有用户
+     * @param {Object} ctx - Koa上下文
      */
-    @request('get', '/users')
-    @summary('获取用户列表')
-    @tag
-    @query({
-        page: { type: 'number', required: false, description: '页码', default: 1 },
-        limit: { type: 'number', required: false, description: '每页数量', default: 10 },
-        search: { type: 'string', required: false, description: '搜索关键词' }
-    })
-    @responses({
-        200: {
-            description: '用户列表获取成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户列表获取成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            users: {
-                                type: 'array',
-                                items: {
-                                    type: 'object',
-                                    properties: {
-                                        id: { type: 'integer', example: 1 },
-                                        username: { type: 'string', example: 'admin' },
-                                        email: { type: 'string', example: 'admin@example.com' },
-                                        role: { type: 'string', example: 'admin' },
-                                        status: { type: 'string', example: 'active' },
-                                        createdAt: { type: 'string', format: 'date-time' },
-                                        updatedAt: { type: 'string', format: 'date-time' }
-                                    }
-                                }
-                            },
-                            pagination: {
-                                type: 'object',
-                                properties: {
-                                    page: { type: 'integer', example: 1 },
-                                    limit: { type: 'integer', example: 10 },
-                                    total: { type: 'integer', example: 2 },
-                                    totalPages: { type: 'integer', example: 1 }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async getUsers(ctx) {
+    async getAllUsers(ctx) {
         try {
-            const { page, limit, search } = ctx.query;
+            const { page = 1, limit = 10, role, status, search } = ctx.query;
+
             const options = {
-                page: parseInt(page) || 1,
-                limit: parseInt(limit) || 10,
-                search: search || ''
+                page: parseInt(page),
+                limit: parseInt(limit),
+                role,
+                status,
+                search
             };
 
-            const result = userService.getAllUsers(options);
+            const result = this.userService.getUsers(options);
 
-            ctx.status = HTTP_STATUS.OK;
-            ctx.body = {
-                success: true,
-                message: '用户列表获取成功',
-                data: result,
-                timestamp: new Date().toISOString()
-            };
+            this.success(ctx, {
+                users: result.users,
+                pagination: result.pagination
+            }, '获取用户列表成功');
         } catch (error) {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_LIST_ERROR'
-                }
-            };
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
-     * 获取单个用户
+     * 根据ID获取用户
+     * @param {Object} ctx - Koa上下文
      */
-    @request('get', '/users/{id}')
-    @summary('获取单个用户')
-    @tag
-    @path({
-        id: { type: 'integer', required: true, description: '用户ID' }
-    })
-    @responses({
-        200: {
-            description: '用户信息获取成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户信息获取成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', example: 1 },
-                            username: { type: 'string', example: 'admin' },
-                            email: { type: 'string', example: 'admin@example.com' },
-                            role: { type: 'string', example: 'admin' },
-                            status: { type: 'string', example: 'active' },
-                            createdAt: { type: 'string', format: 'date-time' },
-                            updatedAt: { type: 'string', format: 'date-time' }
-                        }
-                    }
-                }
-            }
-        },
-        404: {
-            description: '用户不存在',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: false },
-                    error: {
-                        type: 'object',
-                        properties: {
-                            message: { type: 'string', example: '用户不存在' },
-                            code: { type: 'string', example: 'USER_NOT_FOUND' }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async getUser(ctx) {
+    async getUserById(ctx) {
         try {
             const { id } = ctx.params;
-            const user = userService.findUserById(id);
+            const user = this.userService.findById(id);
 
             if (!user) {
-                ctx.status = HTTP_STATUS.NOT_FOUND;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: MESSAGES.USER_NOT_FOUND,
-                        code: 'USER_NOT_FOUND'
-                    }
-                };
-                return;
+                return this.error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
             }
 
-            ctx.status = HTTP_STATUS.OK;
-            ctx.body = {
-                success: true,
-                message: '用户信息获取成功',
-                data: user,
-                timestamp: new Date().toISOString()
-            };
+            this.success(ctx, user, '获取用户信息成功');
         } catch (error) {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_GET_ERROR'
-                }
-            };
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * 创建用户
+     * @param {Object} ctx - Koa上下文
      */
-    @request('post', '/users')
-    @summary('创建新用户')
-    @tag
-    @body({
-        username: { type: 'string', required: true, description: '用户名', example: 'newuser' },
-        email: { type: 'string', required: true, description: '邮箱地址', example: 'newuser@example.com' },
-        password: { type: 'string', required: true, description: '密码', example: 'password123' },
-        role: { type: 'string', required: false, description: '用户角色', example: 'user', default: 'user' }
-    })
-    @responses({
-        201: {
-            description: '用户创建成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户创建成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', example: 3 },
-                            username: { type: 'string', example: 'newuser' },
-                            email: { type: 'string', example: 'newuser@example.com' },
-                            role: { type: 'string', example: 'user' },
-                            status: { type: 'string', example: 'active' },
-                            createdAt: { type: 'string', format: 'date-time' },
-                            updatedAt: { type: 'string', format: 'date-time' }
-                        }
-                    }
-                }
-            }
-        },
-        400: {
-            description: '请求参数错误',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: false },
-                    error: {
-                        type: 'object',
-                        properties: {
-                            message: { type: 'string', example: '用户名已存在' },
-                            code: { type: 'string', example: 'USER_CREATE_ERROR' }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async createUser(ctx) {
+    async createUser(ctx) {
         try {
-            const { username, email, password, role } = ctx.request.body;
+            const userData = ctx.request.body;
 
-            // 参数验证
-            if (!username || !email || !password) {
-                ctx.status = HTTP_STATUS.BAD_REQUEST;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: '用户名、邮箱和密码不能为空',
-                        code: 'INVALID_PARAMETERS'
-                    }
-                };
-                return;
+            // 验证必填字段
+            if (!userData.username || !userData.email) {
+                return this.error(ctx, '用户名和邮箱为必填字段', HTTP_STATUS.BAD_REQUEST);
             }
 
-            const newUser = userService.createUser({ username, email, password, role });
+            // 验证邮箱格式
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(userData.email)) {
+                return this.error(ctx, '邮箱格式不正确', HTTP_STATUS.BAD_REQUEST);
+            }
 
-            ctx.status = HTTP_STATUS.CREATED;
-            ctx.body = {
-                success: true,
-                message: '用户创建成功',
-                data: newUser,
-                timestamp: new Date().toISOString()
-            };
+            const newUser = this.userService.createUser(userData);
+
+            this.success(ctx, newUser, '用户创建成功', HTTP_STATUS.CREATED);
         } catch (error) {
-            ctx.status = HTTP_STATUS.BAD_REQUEST;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_CREATE_ERROR'
-                }
-            };
+            if (error.message.includes('已存在')) {
+                this.error(ctx, error.message, HTTP_STATUS.CONFLICT);
+            } else {
+                this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
     /**
      * 更新用户
+     * @param {Object} ctx - Koa上下文
      */
-    @request('put', '/users/{id}')
-    @summary('更新用户信息')
-    @tag
-    @path({
-        id: { type: 'integer', required: true, description: '用户ID' }
-    })
-    @body({
-        username: { type: 'string', required: false, description: '用户名' },
-        email: { type: 'string', required: false, description: '邮箱地址' },
-        role: { type: 'string', required: false, description: '用户角色' },
-        status: { type: 'string', required: false, description: '用户状态', enum: ['active', 'inactive'] }
-    })
-    @responses({
-        200: {
-            description: '用户更新成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户更新成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', example: 1 },
-                            username: { type: 'string', example: 'updateduser' },
-                            email: { type: 'string', example: 'updated@example.com' },
-                            role: { type: 'string', example: 'admin' },
-                            status: { type: 'string', example: 'active' },
-                            createdAt: { type: 'string', format: 'date-time' },
-                            updatedAt: { type: 'string', format: 'date-time' }
-                        }
-                    }
-                }
-            }
-        },
-        404: {
-            description: '用户不存在',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: false },
-                    error: {
-                        type: 'object',
-                        properties: {
-                            message: { type: 'string', example: '用户不存在' },
-                            code: { type: 'string', example: 'USER_NOT_FOUND' }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async updateUser(ctx) {
+    async updateUser(ctx) {
         try {
             const { id } = ctx.params;
-            const updateData = ctx.request.body;
+            const userData = ctx.request.body;
 
-            const updatedUser = userService.updateUser(id, updateData);
-
-            if (!updatedUser) {
-                ctx.status = HTTP_STATUS.NOT_FOUND;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: MESSAGES.USER_NOT_FOUND,
-                        code: 'USER_NOT_FOUND'
-                    }
-                };
-                return;
+            // 验证邮箱格式（如果提供了邮箱）
+            if (userData.email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(userData.email)) {
+                    return this.error(ctx, '邮箱格式不正确', HTTP_STATUS.BAD_REQUEST);
+                }
             }
 
-            ctx.status = HTTP_STATUS.OK;
-            ctx.body = {
-                success: true,
-                message: '用户更新成功',
-                data: updatedUser,
-                timestamp: new Date().toISOString()
-            };
+            const updatedUser = this.userService.updateUser(id, userData);
+
+            if (!updatedUser) {
+                return this.error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
+            }
+
+            this.success(ctx, updatedUser, '用户更新成功');
         } catch (error) {
-            ctx.status = HTTP_STATUS.BAD_REQUEST;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_UPDATE_ERROR'
-                }
-            };
+            if (error.message.includes('已存在')) {
+                this.error(ctx, error.message, HTTP_STATUS.CONFLICT);
+            } else {
+                this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+            }
         }
     }
 
     /**
      * 删除用户
+     * @param {Object} ctx - Koa上下文
      */
-    @request('delete', '/users/{id}')
-    @summary('删除用户')
-    @tag
-    @path({
-        id: { type: 'integer', required: true, description: '用户ID' }
-    })
-    @responses({
-        200: {
-            description: '用户删除成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户删除成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', example: 1 },
-                            username: { type: 'string', example: 'deleteduser' },
-                            email: { type: 'string', example: 'deleted@example.com' },
-                            role: { type: 'string', example: 'user' },
-                            status: { type: 'string', example: 'active' },
-                            createdAt: { type: 'string', format: 'date-time' },
-                            updatedAt: { type: 'string', format: 'date-time' }
-                        }
-                    }
-                }
-            }
-        },
-        404: {
-            description: '用户不存在',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: false },
-                    error: {
-                        type: 'object',
-                        properties: {
-                            message: { type: 'string', example: '用户不存在' },
-                            code: { type: 'string', example: 'USER_NOT_FOUND' }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async deleteUser(ctx) {
+    async deleteUser(ctx) {
         try {
             const { id } = ctx.params;
-            const deletedUser = userService.deleteUser(id);
+            const deletedUser = this.userService.deleteUser(id);
 
             if (!deletedUser) {
-                ctx.status = HTTP_STATUS.NOT_FOUND;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: MESSAGES.USER_NOT_FOUND,
-                        code: 'USER_NOT_FOUND'
-                    }
-                };
-                return;
+                return this.error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
             }
 
-            ctx.status = HTTP_STATUS.OK;
-            ctx.body = {
-                success: true,
-                message: '用户删除成功',
-                data: deletedUser,
-                timestamp: new Date().toISOString()
-            };
+            this.success(ctx, deletedUser, '用户删除成功');
         } catch (error) {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_DELETE_ERROR'
-                }
-            };
+            this.error(ctx, error.message, HTTP_STATUS.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * 批量删除用户
+     * @param {Object} ctx - Koa上下文
+     */
+    async deleteUsers(ctx) {
+        try {
+            const { ids } = ctx.request.body;
+
+            if (!Array.isArray(ids) || ids.length === 0) {
+                return this.error(ctx, '请提供要删除的用户ID数组', HTTP_STATUS.BAD_REQUEST);
+            }
+
+            const result = this.userService.deleteUsers(ids);
+
+            this.success(ctx, result, '批量删除用户完成');
+        } catch (error) {
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
         }
     }
 
     /**
      * 更新用户状态
+     * @param {Object} ctx - Koa上下文
      */
-    @request('patch', '/users/{id}/status')
-    @summary('更新用户状态')
-    @tag
-    @path({
-        id: { type: 'integer', required: true, description: '用户ID' }
-    })
-    @body({
-        status: { type: 'string', required: true, description: '用户状态', enum: ['active', 'inactive'] }
-    })
-    @responses({
-        200: {
-            description: '用户状态更新成功',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: true },
-                    message: { type: 'string', example: '用户状态更新成功' },
-                    data: {
-                        type: 'object',
-                        properties: {
-                            id: { type: 'integer', example: 1 },
-                            username: { type: 'string', example: 'admin' },
-                            email: { type: 'string', example: 'admin@example.com' },
-                            role: { type: 'string', example: 'admin' },
-                            status: { type: 'string', example: 'inactive' },
-                            createdAt: { type: 'string', format: 'date-time' },
-                            updatedAt: { type: 'string', format: 'date-time' }
-                        }
-                    }
-                }
-            }
-        },
-        404: {
-            description: '用户不存在',
-            schema: {
-                type: 'object',
-                properties: {
-                    success: { type: 'boolean', example: false },
-                    error: {
-                        type: 'object',
-                        properties: {
-                            message: { type: 'string', example: '用户不存在' },
-                            code: { type: 'string', example: 'USER_NOT_FOUND' }
-                        }
-                    }
-                }
-            }
-        }
-    })
-    static async updateUserStatus(ctx) {
+    async updateUserStatus(ctx) {
         try {
             const { id } = ctx.params;
             const { status } = ctx.request.body;
 
-            if (!status || !['active', 'inactive'].includes(status)) {
-                ctx.status = HTTP_STATUS.BAD_REQUEST;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: '状态必须是 active 或 inactive',
-                        code: 'INVALID_STATUS'
-                    }
-                };
-                return;
+            if (!status) {
+                return this.error(ctx, '状态字段为必填', HTTP_STATUS.BAD_REQUEST);
             }
 
-            const updatedUser = userService.updateUserStatus(id, status);
+            const updatedUser = this.userService.updateUserStatus(id, status);
 
             if (!updatedUser) {
-                ctx.status = HTTP_STATUS.NOT_FOUND;
-                ctx.body = {
-                    success: false,
-                    error: {
-                        message: MESSAGES.USER_NOT_FOUND,
-                        code: 'USER_NOT_FOUND'
-                    }
-                };
-                return;
+                return this.error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
             }
 
-            ctx.status = HTTP_STATUS.OK;
-            ctx.body = {
-                success: true,
-                message: '用户状态更新成功',
-                data: updatedUser,
-                timestamp: new Date().toISOString()
-            };
+            this.success(ctx, updatedUser, '用户状态更新成功');
         } catch (error) {
-            ctx.status = HTTP_STATUS.INTERNAL_SERVER_ERROR;
-            ctx.body = {
-                success: false,
-                error: {
-                    message: error.message,
-                    code: 'USER_STATUS_UPDATE_ERROR'
-                }
+            this.error(ctx, error.message, HTTP_STATUS.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * 获取用户统计信息
+     * @param {Object} ctx - Koa上下文
+     */
+    async getUserStats(ctx) {
+        try {
+            const stats = this.userService.getUserStats();
+            this.success(ctx, stats, '获取用户统计信息成功');
+        } catch (error) {
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 搜索用户
+     * @param {Object} ctx - Koa上下文
+     */
+    async searchUsers(ctx) {
+        try {
+            const { q, page = 1, limit = 10 } = ctx.query;
+
+            if (!q) {
+                return this.error(ctx, '搜索关键词为必填', HTTP_STATUS.BAD_REQUEST);
+            }
+
+            const options = {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                search: q
             };
+
+            const result = this.userService.getUsers(options);
+
+            this.success(ctx, {
+                users: result.users,
+                pagination: result.pagination,
+                searchTerm: q
+            }, '搜索用户完成');
+        } catch (error) {
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 根据角色获取用户
+     * @param {Object} ctx - Koa上下文
+     */
+    async getUsersByRole(ctx) {
+        try {
+            const { role } = ctx.params;
+            const { page = 1, limit = 10 } = ctx.query;
+
+            const options = {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                role
+            };
+
+            const result = this.userService.getUsers(options);
+
+            this.success(ctx, {
+                users: result.users,
+                pagination: result.pagination,
+                role
+            }, `获取${role}角色用户列表成功`);
+        } catch (error) {
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * 根据状态获取用户
+     * @param {Object} ctx - Koa上下文
+     */
+    async getUsersByStatus(ctx) {
+        try {
+            const { status } = ctx.params;
+            const { page = 1, limit = 10 } = ctx.query;
+
+            const options = {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                status
+            };
+
+            const result = this.userService.getUsers(options);
+
+            this.success(ctx, {
+                users: result.users,
+                pagination: result.pagination,
+                status
+            }, `获取${status}状态用户列表成功`);
+        } catch (error) {
+            this.error(ctx, error.message, HTTP_STATUS.INTERNAL_SERVER_ERROR);
         }
     }
 }

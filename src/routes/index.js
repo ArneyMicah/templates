@@ -1,111 +1,136 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import Router from 'koa-router';
+import userRouter from './user.js';
 import logger from '../utils/logger.js';
-import testRouter from './test.js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import databaseManager from '../database/index.js';
 
 /**
  * 路由管理器类
- * 负责自动发现和加载路由文件
+ * 负责加载路由文件
  */
 class RouterManager {
     constructor() {
         this.router = new Router(); // 创建主路由器
         this.routes = new Map();    // 存储已加载的路由
-        console.log('🛣️  路由管理器初始化完成');
+        this.loadRoutes();
     }
 
     /**
      * 加载所有路由文件
-     * 自动扫描routes目录下的.js文件
      */
-    async loadRoutes() {
+    loadRoutes() {
         try {
-            console.log('🔍 正在扫描路由文件...');
+            // 加载用户路由
+            this.loadUserRoute();
 
-            // 读取routes目录下的所有文件
-            const files = await fs.readdir(__dirname);
+            // 添加健康检查路由
+            this.addHealthCheckRoute();
 
-            // 过滤出有效的路由文件
-            const routeFiles = files.filter(file =>
-                file.endsWith('.js') &&
-                file !== 'index.js' &&
-                !file.startsWith('.')
-            );
-
-            // console.log(`📁 发现 ${routeFiles.length} 个路由文件: ${routeFiles.join(', ')}`);
-            // logger.info(`发现 ${routeFiles.length} 个路由文件`);
-
-            // 逐个加载路由文件
-            for (const file of routeFiles) {
-                await this.loadRouteFile(file);
-            }
-
-            // console.log('✅ 所有路由加载完成');
-            // logger.info('所有路由加载成功');
+            // 添加Swagger UI路由
+            this.router.get('/docs', async (ctx) => {
+                ctx.redirect('/public/swagger-ui.html');
+            });
 
         } catch (error) {
-            console.error('❌ 加载路由失败:', error.message);
             logger.error('加载路由失败:', error);
             throw error;
         }
     }
 
     /**
-     * 加载单个路由文件
-     * @param {string} filename - 路由文件名
+     * 添加健康检查路由
      */
-    async loadRouteFile(filename) {
-        try {
-            const filePath = path.join(__dirname, filename);
+    addHealthCheckRoute() {
+        // 基础健康检查
+        this.router.get('/health', async (ctx) => {
+            try {
+                const dbHealth = await databaseManager.healthCheck();
 
-            // 动态导入路由模块
-            const routeModule = await import(`file://${filePath}`);
-
-            // 验证路由模块的有效性
-            if (routeModule.default && typeof routeModule.default.routes === 'function') {
-                const routeName = filename.replace('.js', '');
-                this.routes.set(routeName, routeModule.default);
-
-                // 获取路由前缀并注册路由
-                const prefix = this.getRoutePrefix(routeName);
-                this.router.use(prefix, routeModule.default.routes(), routeModule.default.allowedMethods());
-
-                logger.info(`路由 ${routeName} 加载成功，前缀: ${prefix}`);
-            } else {
-                logger.warn(`路由文件 ${filename} 可能不是有效的路由模块`);
+                ctx.body = {
+                    success: true,
+                    data: {
+                        status: 'healthy',
+                        timestamp: new Date().toISOString(),
+                        uptime: process.uptime(),
+                        memory: process.memoryUsage(),
+                        database: dbHealth
+                    }
+                };
+            } catch (error) {
+                logger.error('健康检查失败:', error);
+                ctx.status = 500;
+                ctx.body = {
+                    success: false,
+                    error: {
+                        message: '健康检查失败',
+                        status: 500,
+                        timestamp: new Date().toISOString()
+                    }
+                };
             }
-        } catch (error) {
-            logger.error(`加载路由文件 ${filename} 失败:`, error);
-        }
+        });
+
+        // 详细健康检查
+        this.router.get('/health/detailed', async (ctx) => {
+            try {
+                const dbHealth = await databaseManager.healthCheck();
+                const systemInfo = {
+                    nodeVersion: process.version,
+                    platform: process.platform,
+                    arch: process.arch,
+                    pid: process.pid,
+                    uptime: process.uptime(),
+                    memory: process.memoryUsage(),
+                    cpu: process.cpuUsage()
+                };
+
+                ctx.body = {
+                    success: true,
+                    data: {
+                        status: 'healthy',
+                        timestamp: new Date().toISOString(),
+                        system: systemInfo,
+                        database: dbHealth
+                    }
+                };
+            } catch (error) {
+                logger.error('详细健康检查失败:', error);
+                ctx.status = 500;
+                ctx.body = {
+                    success: false,
+                    error: {
+                        message: '详细健康检查失败',
+                        status: 500,
+                        timestamp: new Date().toISOString()
+                    }
+                };
+            }
+        });
+
+        logger.info('健康检查路由已添加: /health, /health/detailed');
     }
 
     /**
-     * 获取路由前缀
-     * 根据文件名设置合适的路由前缀
-     * @param {string} routeName - 路由名称
-     * @returns {string} 路由前缀
+     * 加载用户路由
      */
-    getRoutePrefix(routeName) {
-        // 根据文件名设置路由前缀
-        const prefixMap = {
-            'auth': '/auth',           // 认证相关路由
-            'user': '/users',          // 用户管理路由
-            'post': '/posts',          // 文章管理路由
-            'upload': '/upload',       // 文件上传路由
-            'api': '/api',             // API相关路由
-            'health': '/',             // 健康检查使用根路径
-            'swagger': '/docs'         // Swagger文档使用/docs路径
-        };
+    loadUserRoute() {
+        try {
+            // 验证路由模块的有效性
+            if (userRouter && typeof userRouter.routes === 'function') {
+                this.routes.set('user', userRouter);
 
-        const prefix = prefixMap[routeName] || `/${routeName}`;
+                // 注册用户路由
+                this.router.use('/api/users', userRouter.routes(), userRouter.allowedMethods());
 
-        return prefix;
+                logger.info('用户路由加载成功，前缀: /api/users');
+            } else {
+                logger.warn('用户路由文件可能不是有效的路由模块');
+            }
+        } catch (error) {
+            logger.error('加载用户路由失败:', error);
+        }
     }
+
+
 
     /**
      * 获取路由器实例
@@ -122,41 +147,10 @@ class RouterManager {
     getRoutes() {
         return this.routes;
     }
-
-    /**
-     * 获取所有注册的路由信息
-     * 用于调试和监控
-     * @returns {Array} 路由信息数组
-     */
-    getRouteInfo() {
-        const routeInfo = [];
-        this.router.stack.forEach(layer => {
-            if (layer.route) {
-                const methods = Object.keys(layer.route.methods);
-                routeInfo.push({
-                    path: layer.route.path,
-                    methods: methods,
-                    prefix: layer.route.path.split('/')[1] || '/'
-                });
-            }
-        });
-        return routeInfo;
-    }
 }
 
 // 创建路由管理器实例
 const routerManager = new RouterManager();
-
-// 初始化函数
-async function initializeRouter() {
-    await routerManager.loadRoutes();
-}
-
-// 立即初始化
-initializeRouter().catch(error => {
-    logger.error('路由初始化失败:', error);
-    process.exit(1);
-});
 
 export default routerManager.getRouter();
 export { routerManager };
