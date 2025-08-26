@@ -69,12 +69,5 @@ export const paginate = (ctx, data, total, page, limit) => {
     };
 };
 
-// 保持向后兼容性，导出BaseController对象
-export const BaseController = {
-    success,
-    error,
-    paginate
-};
-
 
 

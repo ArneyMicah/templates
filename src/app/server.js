@@ -4,8 +4,7 @@ import { app as appConfig } from '../config/global.js';
 import { connect, disconnect } from '../database/index.js';
 
 /**
- * 服务器管理函数
- * 负责服务器的启动、关闭和进程信号处理
+ * 服务器管理
  */
 
 // 服务器状态
@@ -27,9 +26,6 @@ export const start = async () => {
     // 设置优雅关闭处理
     setupGracefulShutdown();
 
-    // 记录启动成功日志
-    // 服务器启动成功
-
   } catch (error) {
     logger.error('启动服务器失败:', error);
     process.exit(1);
@@ -42,19 +38,16 @@ export const start = async () => {
  */
 const initializeDatabase = async () => {
   try {
-    const connected = await connect();
-    if (!connected) {
-      logger.warn('数据库连接失败，但服务器将继续启动');
-    }
+    await connect();
+    logger.info('数据库连接成功');
   } catch (error) {
     logger.error('初始化数据库失败:', error);
-    // 数据库连接失败不应该阻止服务器启动
+    logger.warn('数据库连接失败，但服务器将继续启动');
   }
 };
 
 /**
  * 设置优雅关闭处理
- * 处理各种进程信号和异常情况
  */
 const setupGracefulShutdown = () => {
   const shutdown = async (signal) => {
@@ -102,29 +95,4 @@ const setupGracefulShutdown = () => {
     shutdown('unhandledRejection');
   });
 };
-
-/**
- * 获取服务器实例
- * @returns {Object} 服务器实例
- */
-export const getServer = () => {
-  return server;
-};
-
-/**
- * 获取端口号
- * @returns {number} 端口号
- */
-export const getPort = () => {
-  return port;
-};
-
-// 保持向后兼容性，导出Server对象
-const Server = {
-  start,
-  getServer,
-  getPort
-};
-
-export default Server;
 

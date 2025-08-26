@@ -1,9 +1,6 @@
 // 导入全局配置
-import globalConfig from './src/config/global.js';
+import { app as appConfig } from './src/config/global.js';
 import logger from './src/utils/logger.js';
-
-// 获取配置
-const appConfig = globalConfig.get('app');
 
 // 启动服务器
 const startServer = async () => {

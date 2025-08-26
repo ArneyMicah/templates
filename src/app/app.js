@@ -14,7 +14,6 @@ import { requestLogger } from '../middlewares/request-logger.js';
 import { responseTime } from '../middlewares/response-time.js';
 import { rateLimit } from '../middlewares/rate-limit.js';
 import { validate } from '../middlewares/validate.js';
-import { jsonParser } from '../middlewares/json-parser.js';
 
 // Swagger工具
 import { getSwaggerConfig } from '../utils/swagger.js';
@@ -22,6 +21,11 @@ import { getAllSwaggerPaths, getAllSwaggerSchemas, getSwaggerInfo } from '../../
 
 // 路由
 import router from '../routes/index.js';
+
+// 数据库
+import { connect as connectDatabase, syncDatabase } from '../database/index.js';
+import { initializeModels } from '../models/index.js';
+import { initializeSampleData } from '../services/user.service.js';
 
 // 日志工具
 import logger from '../utils/logger.js';
@@ -114,7 +118,6 @@ const setupMiddlewares = () => {
   // 自定义中间件
   app.use(responseTime());
   app.use(requestLogger());
-  app.use(jsonParser());
   app.use(rateLimit());
   app.use(validate());
 };
@@ -176,6 +179,29 @@ export const start = async (port = 3000) => {
     // 创建Koa应用实例
     app = new Koa();
 
+    // 连接数据库
+    logger.info('正在连接数据库...');
+    try {
+      await connectDatabase();
+
+      // 初始化模型
+      logger.info('正在初始化数据库模型...');
+      await initializeModels();
+
+      // 同步数据库（开发环境）
+      if (process.env.NODE_ENV === 'development') {
+        logger.info('正在同步数据库结构...');
+        await syncDatabase(false); // 不强制重建表
+
+        // 初始化示例数据
+        logger.info('正在初始化示例数据...');
+        await initializeSampleData();
+      }
+    } catch (error) {
+      logger.error('数据库初始化失败，但应用将继续启动:', error.message);
+      // 不抛出错误，让应用继续启动
+    }
+
     // 设置中间件
     setupMiddlewares();
     setupSwagger();
@@ -184,7 +210,7 @@ export const start = async (port = 3000) => {
 
     // 启动应用
     await app.listen(port);
-    // 应用启动成功
+    logger.info(`应用启动成功，监听端口: ${port}`);
     return app;
   } catch (error) {
     logger.error('应用启动失败:', error);

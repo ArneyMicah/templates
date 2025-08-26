@@ -29,11 +29,11 @@ let spec = {
             description: '系统健康检查接口'
         }
     ],
-            paths: {},
-        components: {
-            schemas: {}
-        }
-    };
+    paths: {},
+    components: {
+        schemas: {}
+    }
+};
 
 /**
  * 设置 API 信息

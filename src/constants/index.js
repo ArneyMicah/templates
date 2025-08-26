@@ -1,16 +1,3 @@
-// 用户相关常量
-export const USER_STATUS = {
-    ACTIVE: 'active',
-    INACTIVE: 'inactive',
-    SUSPENDED: 'suspended'
-};
-
-export const USER_ROLES = {
-    ADMIN: 'admin',
-    USER: 'user',
-    GUEST: 'guest'
-};
-
 // 响应状态码
 export const HTTP_STATUS = {
     OK: 200,

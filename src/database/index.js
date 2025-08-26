@@ -1,36 +1,57 @@
+import { Sequelize } from 'sequelize';
 import logger from '../utils/logger.js';
 import { database as dbConfig } from '../config/global.js';
 
 /**
- * 数据库连接管理函数
- * 提供数据库连接的基础结构和错误处理
+ * Sequelize数据库连接管理
  */
 
-// 数据库连接状态
-let connection = null;
+// Sequelize实例
+let sequelize = null;
 let isConnected = false;
 
 /**
- * 初始化数据库连接
- * @returns {Promise<boolean>} 连接是否成功
+ * 初始化Sequelize连接
+ * @returns {Promise<Sequelize>} Sequelize实例
  */
 export const connect = async () => {
     try {
         logger.info('正在连接数据库...');
 
-        // 这里应该根据实际的数据库库来实现连接
-        // 例如使用 Sequelize, TypeORM 等
-        logger.warn('数据库连接未实现，请根据实际需求配置数据库库');
+        // 创建Sequelize实例
+        sequelize = new Sequelize(
+            dbConfig.database,
+            dbConfig.username,
+            dbConfig.password,
+            {
+                host: dbConfig.host,
+                port: dbConfig.port,
+                dialect: dbConfig.dialect,
+                logging: dbConfig.logging ? console.log : false,
+                pool: dbConfig.pool,
+                timezone: dbConfig.timezone || '+08:00',
+                charset: dbConfig.charset || 'utf8mb4',
+                collate: dbConfig.collate || 'utf8mb4_unicode_ci',
+                define: {
+                    timestamps: true,
+                    underscored: true,
+                    freezeTableName: true,
+                    charset: 'utf8mb4',
+                    collate: 'utf8mb4_unicode_ci'
+                }
+            }
+        );
 
-        // 模拟连接成功
+        // 测试连接
+        await sequelize.authenticate();
         isConnected = true;
         logger.info('数据库连接成功');
 
-        return true;
+        return sequelize;
     } catch (error) {
         logger.error('数据库连接失败:', error);
         isConnected = false;
-        return false;
+        throw error;
     }
 };
 
@@ -40,14 +61,15 @@ export const connect = async () => {
  */
 export const disconnect = async () => {
     try {
-        if (connection) {
-            // 关闭数据库连接
+        if (sequelize) {
             logger.info('正在关闭数据库连接...');
+            await sequelize.close();
             isConnected = false;
             logger.info('数据库连接已关闭');
         }
     } catch (error) {
         logger.error('关闭数据库连接失败:', error);
+        throw error;
     }
 };
 
@@ -60,6 +82,34 @@ export const isDatabaseConnected = () => {
 };
 
 /**
+ * 获取Sequelize实例
+ * @returns {Sequelize|null} Sequelize实例
+ */
+export const getSequelize = () => {
+    return sequelize;
+};
+
+/**
+ * 同步数据库模型（开发环境使用）
+ * @param {boolean} force - 是否强制重建表
+ * @returns {Promise<void>}
+ */
+export const syncDatabase = async (force = false) => {
+    try {
+        if (!sequelize) {
+            throw new Error('数据库未连接');
+        }
+
+        logger.info(`正在同步数据库模型... (force: ${force})`);
+        await sequelize.sync({ force });
+        logger.info('数据库模型同步完成');
+    } catch (error) {
+        logger.error('数据库模型同步失败:', error);
+        throw error;
+    }
+};
+
+/**
  * 获取数据库配置信息（不包含敏感信息）
  * @returns {Object} 数据库配置
  */
@@ -69,8 +119,8 @@ export const getDatabaseInfo = () => {
         port: dbConfig.port,
         database: dbConfig.database,
         dialect: dbConfig.dialect,
-        timezone: dbConfig.timezone,
-        charset: dbConfig.charset,
+        timezone: dbConfig.timezone || '+08:00',
+        charset: dbConfig.charset || 'utf8mb4',
         isConnected: isConnected
     };
 };
@@ -81,29 +131,28 @@ export const getDatabaseInfo = () => {
  */
 export const healthCheck = async () => {
     try {
-        const isHealthy = isConnected;
+        if (!sequelize) {
+            return {
+                status: 'unhealthy',
+                timestamp: new Date().toISOString(),
+                error: '数据库未连接'
+            };
+        }
+
+        // 执行简单查询测试连接
+        await sequelize.authenticate();
+
         return {
-            status: isHealthy ? 'healthy' : 'unhealthy',
+            status: 'healthy',
             timestamp: new Date().toISOString(),
             database: getDatabaseInfo()
         };
     } catch (error) {
         logger.error('数据库健康检查失败:', error);
         return {
-            status: 'error',
+            status: 'unhealthy',
             timestamp: new Date().toISOString(),
             error: error.message
         };
     }
 };
-
-// 保持向后兼容性，导出databaseManager对象
-const databaseManager = {
-    connect,
-    disconnect,
-    isDatabaseConnected,
-    getDatabaseInfo,
-    healthCheck
-};
-
-export default databaseManager;

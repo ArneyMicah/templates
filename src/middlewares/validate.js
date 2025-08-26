@@ -15,20 +15,18 @@ export function validate() {
                 logger.warn('参数验证失败:', {
                     path: ctx.path,
                     method: ctx.method,
-                    error: error.message,
-                    body: ctx.request.body,
-                    query: ctx.query,
-                    params: ctx.params
+                    error: error.message
                 });
 
                 ctx.status = 422;
                 ctx.body = {
-                    code: 422,
+                    success: false,
                     message: '参数验证失败',
                     errors: error.details.map(detail => ({
                         field: detail.path.join('.'),
                         message: detail.message
-                    }))
+                    })),
+                    timestamp: new Date().toISOString()
                 };
                 return;
             }
@@ -80,12 +78,13 @@ export function createValidator(schema, type = 'body') {
 
                 ctx.status = 422;
                 ctx.body = {
-                    code: 422,
+                    success: false,
                     message: '参数验证失败',
                     errors: error.details.map(detail => ({
                         field: detail.path.join('.'),
                         message: detail.message
-                    }))
+                    })),
+                    timestamp: new Date().toISOString()
                 };
                 return;
             }

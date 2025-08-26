@@ -4,35 +4,11 @@ import logger from '../utils/logger.js';
 import { healthCheck } from '../database/index.js';
 
 /**
- * 路由管理函数
- * 负责加载路由文件
+ * 路由管理
  */
 
 // 创建主路由器
 const router = new Router();
-const routes = new Map();
-
-/**
- * 加载所有路由文件
- */
-const loadRoutes = () => {
-    try {
-        // 加载用户路由
-        loadUserRoute();
-
-        // 添加健康检查路由
-        addHealthCheckRoute();
-
-        // 添加Swagger UI路由
-        router.get('/docs', async (ctx) => {
-            ctx.redirect('/public/swagger-ui.html');
-        });
-
-    } catch (error) {
-        logger.error('加载路由失败:', error);
-        throw error;
-    }
-};
 
 /**
  * 添加健康检查路由
@@ -103,58 +79,32 @@ const addHealthCheckRoute = () => {
             };
         }
     });
-
-    // 健康检查路由已添加: /health, /health/detailed
 };
 
 /**
- * 加载用户路由
+ * 加载所有路由
  */
-const loadUserRoute = () => {
+const loadRoutes = () => {
     try {
-        // 验证路由模块的有效性
-        if (userRouter && typeof userRouter.routes === 'function') {
-            routes.set('user', userRouter);
+        // 注册用户路由
+        router.use('/api/users', userRouter.routes(), userRouter.allowedMethods());
 
-            // 注册用户路由
-            router.use('/api/users', userRouter.routes(), userRouter.allowedMethods());
+        // 添加健康检查路由
+        addHealthCheckRoute();
 
-            // 用户路由加载成功，前缀: /api/users
-        } else {
-            logger.warn('用户路由文件可能不是有效的路由模块');
-        }
+        // 添加Swagger UI路由
+        router.get('/docs', async (ctx) => {
+            ctx.redirect('/public/swagger-ui.html');
+        });
+
+        logger.info('所有路由加载完成');
     } catch (error) {
-        logger.error('加载用户路由失败:', error);
+        logger.error('加载路由失败:', error);
+        throw error;
     }
-};
-
-/**
- * 获取路由器实例
- * @returns {Router} Koa路由器实例
- */
-const getRouter = () => {
-    return router;
-};
-
-/**
- * 获取已加载的路由映射
- * @returns {Map} 路由映射表
- */
-const getRoutes = () => {
-    return routes;
 };
 
 // 初始化路由
 loadRoutes();
 
-// 保持向后兼容性，导出routerManager对象
-const routerManager = {
-    getRouter,
-    getRoutes,
-    loadRoutes,
-    loadUserRoute,
-    addHealthCheckRoute
-};
-
-export default routerManager.getRouter();
-export { routerManager };
+export default router;

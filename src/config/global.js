@@ -29,11 +29,11 @@ const init = () => {
 
     // 数据库配置
     config.database = {
-        host: process.env.DB_HOST || 'localhost',
+        host: process.env.DB_HOST || '154.36.164.3',
         port: 3306,
-        database: process.env.DB_NAME || 'koa_project_dev',
-        username: process.env.DB_USERNAME || 'root',
-        password: process.env.DB_PASSWORD || '',
+        database: process.env.DB_NAME || 'koa-project',
+        username: process.env.DB_USERNAME || 'koa-project',
+        password: process.env.DB_PASSWORD || '123456',
         dialect: 'mysql',
         logging: env === 'development',
         pool: {
@@ -100,7 +100,6 @@ const get = (path, defaultValue = undefined) => {
 
     return value;
 };
-
 /**
  * 设置配置值
  * @param {string} path - 配置路径
@@ -152,3 +151,4 @@ export const {
     staticFiles,
     security
 } = config;
+

@@ -10,7 +10,8 @@ import {
     updateUser, 
     deleteUser, 
     getUsers, 
-    findById
+    findById,
+    validateLogin
 } from '../services/user.service.js';
 import logger from '../utils/logger.js';
 
@@ -23,11 +24,11 @@ export const createUserController = async (ctx) => {
         const userData = ctx.request.body;
         
         // 验证必需字段
-        if (!userData.username || !userData.email) {
-            return error(ctx, '用户名和邮箱是必需的', HTTP_STATUS.BAD_REQUEST);
+        if (!userData.username || !userData.email || !userData.password) {
+            return error(ctx, '用户名、邮箱和密码是必需的', HTTP_STATUS.BAD_REQUEST);
         }
 
-        const newUser = createUser(userData);
+        const newUser = await createUser(userData);
         logger.info(`用户创建成功: ${newUser.username}`);
         
         return success(ctx, newUser, '用户创建成功', HTTP_STATUS.CREATED);
@@ -43,14 +44,27 @@ export const createUserController = async (ctx) => {
  */
 export const getUsersController = async (ctx) => {
     try {
-        const { page, limit } = ctx.query;
+        const { 
+            page, 
+            limit, 
+            status, 
+            role, 
+            search, 
+            sortBy, 
+            sortOrder 
+        } = ctx.query;
         
         const options = {
             page: parseInt(page) || 1,
-            limit: parseInt(limit) || 10
+            limit: parseInt(limit) || 10,
+            status,
+            role,
+            search,
+            sortBy: sortBy || 'created_at',
+            sortOrder: sortOrder || 'DESC'
         };
 
-        const result = getUsers(options);
+        const result = await getUsers(options);
         logger.info(`获取用户列表成功，共${result.pagination.total}条记录`);
         
         return paginate(
@@ -79,7 +93,7 @@ export const getUserByIdController = async (ctx) => {
             return error(ctx, '无效的用户ID', HTTP_STATUS.BAD_REQUEST);
         }
 
-        const user = findById(userId);
+        const user = await findById(userId);
         if (!user) {
             return error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
         }
@@ -106,7 +120,7 @@ export const updateUserController = async (ctx) => {
             return error(ctx, '无效的用户ID', HTTP_STATUS.BAD_REQUEST);
         }
 
-        const updatedUser = updateUser(userId, userData);
+        const updatedUser = await updateUser(userId, userData);
         if (!updatedUser) {
             return error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
         }
@@ -132,7 +146,7 @@ export const deleteUserController = async (ctx) => {
             return error(ctx, '无效的用户ID', HTTP_STATUS.BAD_REQUEST);
         }
 
-        const deletedUser = deleteUser(userId);
+        const deletedUser = await deleteUser(userId);
         if (!deletedUser) {
             return error(ctx, '用户不存在', HTTP_STATUS.NOT_FOUND);
         }
@@ -145,11 +159,28 @@ export const deleteUserController = async (ctx) => {
     }
 };
 
-// 保持向后兼容性，导出UserController对象
-export const UserController = {
-    createUserController,
-    getUsersController,
-    getUserByIdController,
-    updateUserController,
-    deleteUserController
+/**
+ * 用户登录
+ * @param {Object} ctx - Koa上下文
+ */
+export const loginController = async (ctx) => {
+    try {
+        const { username, password } = ctx.request.body;
+        
+        // 验证必需字段
+        if (!username || !password) {
+            return error(ctx, '用户名和密码是必需的', HTTP_STATUS.BAD_REQUEST);
+        }
+
+        const user = await validateLogin(username, password);
+        if (!user) {
+            return error(ctx, '用户名或密码错误', HTTP_STATUS.UNAUTHORIZED);
+        }
+
+        logger.info(`用户登录成功: ${user.username}`);
+        return success(ctx, user, '登录成功');
+    } catch (err) {
+        logger.error('用户登录失败:', err);
+        return error(ctx, err.message, HTTP_STATUS.UNAUTHORIZED);
+    }
 };

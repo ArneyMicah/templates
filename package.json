@@ -5,7 +5,12 @@
     "main": "main.js",
     "scripts": {
         "start": "node main.js",
-        "dev": "nodemon main.js"
+        "dev": "nodemon main.js",
+        "db:init": "node scripts/database.js init",
+        "db:migrate": "node scripts/database.js migrate",
+        "db:reset": "node scripts/database.js reset --force",
+        "db:seed": "node scripts/database.js seed",
+        "db:status": "node scripts/database.js status"
     },
     "author": "",
     "license": "ISC",
@@ -13,6 +18,7 @@
     "dependencies": {
         "@koa/cors": "^5.0.0",
         "@koa/router": "^14.0.0",
+        "bcrypt": "^6.0.0",
         "joi": "^18.0.1",
         "jsonwebtoken": "^9.0.2",
         "koa": "^3.0.1",
@@ -23,11 +29,13 @@
         "koa-ratelimit": "^6.0.0",
         "koa-router": "^14.0.0",
         "koa-static": "^5.0.0",
+        "mysql2": "^3.14.3",
+        "sequelize": "^6.37.7",
         "winston": "^3.17.0"
     },
     "devDependencies": {
-        "nodemon": "^3.1.10",
         "koa2-swagger-ui": "^5.11.0",
+        "nodemon": "^3.1.10",
         "swagger-jsdoc": "^6.2.8"
     }
 }
